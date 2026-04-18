@@ -356,11 +356,11 @@ body {
 /* Phones */
 @media (max-width: 600px) {
   :root {
-    --header-height: 64px;
+    --header-height: 52px;
   }
 
   .site-header {
-    padding: 10px 12px;
+    padding: 8px 12px;
   }
 
   .header-inner {
@@ -369,7 +369,7 @@ body {
   }
 
   .header-logo {
-    width: 94px;
+    width: 84px;
   }
 
   .header-nav {
@@ -410,13 +410,13 @@ body {
   }
 
   .coming-soon-wrap {
-    min-height: 220px;
-    padding: 40px 16px;
+    min-height: 180px;
+    padding: 36px 16px;
     overflow: hidden;
   }
 
   .coming-lockup {
-    font-size: clamp(1.7rem, 11vw, 2.8rem);
+    font-size: clamp(1.4rem, 9vw, 2.2rem);
     line-height: 0.96;
   }
 
@@ -424,31 +424,32 @@ body {
     margin-top: 0.09em;
   }
 
+  /* Stars scale with the text, not the viewport */
   .spinning-star {
-    width: 24px;
+    width: clamp(28px, 6vw, 44px);
   }
 
   .star-left {
-    left: -18px;
+    left: clamp(-40px, -7vw, -28px);
   }
 
   .star-right {
-    right: -18px;
+    right: clamp(-40px, -7vw, -28px);
   }
 }
 
 /* Very small phones */
 @media (max-width: 380px) {
   :root {
-    --header-height: 60px;
+    --header-height: 48px;
   }
 
   .site-header {
-    padding: 8px 10px;
+    padding: 6px 10px;
   }
 
   .header-logo {
-    width: 86px;
+    width: 76px;
   }
 
   .header-nav {
@@ -464,18 +465,18 @@ body {
   }
 
   .coming-lockup {
-    font-size: clamp(1.55rem, 10.5vw, 2.3rem);
+    font-size: clamp(1.3rem, 9vw, 1.9rem);
   }
 
   .spinning-star {
-    width: 20px;
+    width: clamp(22px, 5.5vw, 34px);
   }
 
   .star-left {
-    left: -14px;
+    left: clamp(-32px, -6vw, -22px);
   }
 
   .star-right {
-    right: -14px;
+    right: clamp(-32px, -6vw, -22px);
   }
 }
