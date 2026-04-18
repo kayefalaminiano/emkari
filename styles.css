@@ -243,7 +243,7 @@ body {
 .spinning-star {
   position: absolute;
   top: 50%;
-  width: clamp(70px, 5vw, 120px);
+  width: clamp(52px, 5vw, 96px);
   height: auto;
   display: block;
   transform-origin: center;
@@ -251,11 +251,11 @@ body {
 }
 
 .star-left {
-  left: -150px;
+  left: clamp(-110px, -8vw, -72px);
 }
 
 .star-right {
-  right: -150px
+  right: clamp(-110px, -8vw, -72px);
 }
 
 @keyframes spinStar {
@@ -287,16 +287,6 @@ body {
   }
 }
 
-@media (max-width: 1024px) {
-  .header-nav {
-    gap: 24px;
-  }
-
-  .header-nav a {
-    font-size: 0.98rem;
-  }
-}
-
 @media (max-width: 768px) {
   .site-header {
     padding: 14px 16px;
@@ -313,6 +303,23 @@ body {
   .header-nav a {
     font-size: 0.9rem;
   }
+
+  .coming-lockup {
+    font-size: clamp(2.5rem, 10vw, 4.8rem);
+    line-height: 0.86;
+  }
+
+  .spinning-star {
+    width: clamp(38px, 6vw, 64px);
+  }
+
+  .star-left {
+    left: -52px;
+  }
+
+  .star-right {
+    right: -52px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -328,11 +335,28 @@ body {
     font-size: 0.82rem;
   }
 
+  .coming-soon-wrap {
+    padding: 56px 20px;
+  }
+
+  .coming-lockup {
+    font-size: clamp(2.15rem, 13vw, 3.6rem);
+    line-height: 0.9;
+  }
+
+  .coming-lockup span + span {
+    margin-top: 0.08em;
+  }
+
+  .spinning-star {
+    width: 34px;
+  }
+
   .star-left {
-    left: -26px;
+    left: -28px;
   }
 
   .star-right {
-    right: -26px;
+    right: -28px;
   }
 }
