@@ -296,16 +296,20 @@ body {
 
 /* Tablet */
 @media (max-width: 900px) {
+  :root {
+    --header-height: 72px;
+  }
+
   .site-header {
-    padding: 14px 18px;
+    padding: 12px 16px;
   }
 
   .header-logo {
-    width: min(122px, 28vw);
+    width: min(112px, 26vw);
   }
 
   .header-nav {
-    gap: 18px;
+    gap: 14px;
   }
 
   .header-nav a {
@@ -313,86 +317,17 @@ body {
   }
 
   .logo {
-    width: min(72vw, 430px);
-    max-height: 62%;
+    width: min(70vw, 400px);
+    max-height: 58%;
   }
 
   .tagline-top {
-    font-size: 0.95rem;
-    letter-spacing: 0.12em;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
   }
 
   .tagline-bottom {
-    font-size: 1.35rem;
-  }
-
-  .coming-soon-wrap {
-    min-height: 320px;
-    padding: 60px 20px;
-  }
-
-  .coming-lockup {
-    font-size: clamp(2.6rem, 10vw, 4.8rem);
-    line-height: 0.86;
-  }
-
-  .spinning-star {
-    width: clamp(38px, 6vw, 64px);
-  }
-
-  .star-left {
-    left: -52px;
-  }
-
-  .star-right {
-    right: -52px;
-  }
-}
-
-/* Large phones / small tablets */
-@media (max-width: 680px) {
-  :root {
-    --header-height: 88px;
-  }
-
-  .site-header {
-    padding: 12px 14px;
-  }
-
-  .header-inner {
-    align-items: flex-start;
-    padding-top: 2px;
-  }
-
-  .header-nav {
-    gap: 10px 14px;
-    max-width: 62%;
-  }
-
-  .header-nav a {
-    font-size: 0.84rem;
-  }
-
-  .hero-content {
-    padding: 48px 18px 28px;
-  }
-
-  .logo {
-    width: min(78vw, 360px);
-    max-height: 56%;
-  }
-
-  .tagline {
-    margin-top: 14px;
-  }
-
-  .tagline-top {
-    font-size: 0.82rem;
-    letter-spacing: 0.11em;
-  }
-
-  .tagline-bottom {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
   }
 
   .coming-soon-wrap {
@@ -401,116 +336,92 @@ body {
   }
 
   .coming-lockup {
-    font-size: clamp(2.2rem, 12vw, 3.9rem);
+    font-size: clamp(2.2rem, 9vw, 4.2rem);
     line-height: 0.9;
   }
 
-  .coming-lockup span + span {
-    margin-top: 0.08em;
-  }
-
   .spinning-star {
-    width: 34px;
+    width: clamp(34px, 4.5vw, 52px);
   }
 
   .star-left {
-    left: -28px;
+    left: -44px;
   }
 
   .star-right {
-    right: -28px;
+    right: -44px;
   }
 }
 
-/* Small phones */
-@media (max-width: 430px) {
+/* Phones */
+@media (max-width: 600px) {
   :root {
-    --header-height: 96px;
+    --header-height: 64px;
   }
 
   .site-header {
-    padding: 12px 12px;
+    padding: 10px 12px;
   }
 
   .header-inner {
     gap: 10px;
+    align-items: center;
   }
 
   .header-logo {
-    width: 98px;
+    width: 94px;
   }
 
   .header-nav {
-    gap: 8px 10px;
-    max-width: 60%;
+    gap: 10px;
+    flex-wrap: nowrap;
   }
 
   .header-nav a {
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     letter-spacing: 0.01em;
   }
 
+  .hero {
+    min-height: 100svh;
+    height: 100svh;
+  }
+
   .hero-content {
-    padding: 50px 16px 24px;
+    padding: 36px 16px 24px;
   }
 
   .logo {
-    width: min(82vw, 320px);
-    max-height: 50%;
+    width: min(78vw, 300px);
+    max-height: 46%;
+  }
+
+  .tagline {
+    margin-top: 12px;
   }
 
   .tagline-top {
     font-size: 0.74rem;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.08em;
   }
 
   .tagline-bottom {
-    font-size: 1.02rem;
+    font-size: 0.98rem;
   }
 
   .coming-soon-wrap {
-    min-height: 240px;
-    padding: 44px 16px;
+    min-height: 220px;
+    padding: 40px 16px;
+    overflow: hidden;
   }
 
   .coming-lockup {
-    font-size: clamp(1.9rem, 13vw, 3.1rem);
-    line-height: 0.94;
+    font-size: clamp(1.7rem, 11vw, 2.8rem);
+    line-height: 0.96;
   }
 
-  .spinning-star {
-    width: 28px;
-  }
-
-  .star-left {
-    left: -22px;
-  }
-
-  .star-right {
-    right: -22px;
-  }
-}
-
-/* Very small phones */
-@media (max-width: 360px) {
-  :root {
-    --header-height: 102px;
-  }
-
-  .header-nav {
-    max-width: 58%;
-  }
-
-  .header-nav a {
-    font-size: 0.72rem;
-  }
-
-  .logo {
-    width: min(84vw, 290px);
-  }
-
-  .coming-lockup {
-    font-size: 1.8rem;
+  .coming-lockup span + span {
+    margin-top: 0.09em;
   }
 
   .spinning-star {
@@ -523,5 +434,48 @@ body {
 
   .star-right {
     right: -18px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  :root {
+    --header-height: 60px;
+  }
+
+  .site-header {
+    padding: 8px 10px;
+  }
+
+  .header-logo {
+    width: 86px;
+  }
+
+  .header-nav {
+    gap: 8px;
+  }
+
+  .header-nav a {
+    font-size: 0.76rem;
+  }
+
+  .logo {
+    width: min(80vw, 270px);
+  }
+
+  .coming-lockup {
+    font-size: clamp(1.55rem, 10.5vw, 2.3rem);
+  }
+
+  .spinning-star {
+    width: 20px;
+  }
+
+  .star-left {
+    left: -14px;
+  }
+
+  .star-right {
+    right: -14px;
   }
 }
