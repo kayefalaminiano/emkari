@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Emkari</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=BBH+Bartle&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/png" href="logos/cat_favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body class="contact-page">
+    <header class="site-header scrolled">
+      <div class="header-inner">
+        <a href="index.html" class="header-link" aria-label="Go to homepage">
+          <span class="header-logo"></span>
+        </a>
+
+        <nav class="header-nav" aria-label="Site and social links">
+          <a href="https://www.instagram.com/emkari_cafe/" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.tiktok.com/@emkari_cafe" target="_blank" rel="noreferrer">TikTok</a>
+          <a href="contact.html" aria-current="page">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="contact-main">
+      <section class="contact-hero" aria-labelledby="contact-title">
+        <div class="contact-hero-inner">
+          <p class="contact-kicker">We’d love to hear from you!</p>
+          <h1 id="contact-title">Contact Emkari</h1>
+          <p>
+            Questions, collaborations, catering inquiries, or just a hello — send us a note and we’ll get back to you soon!
+          </p>
+        </div>
+      </section>
+
+      <section class="contact-section" aria-labelledby="form-title">
+        <div class="contact-card">
+          <div class="contact-card-copy">
+            <p class="contact-kicker">Get in touch</p>
+            <h2 id="form-title">Send us a message</h2>
+            <p>
+              Fill out the form below. If you add your phone number, we can text you with updates about your inquiry.
+            </p>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <input
+              type="hidden"
+              name="confirmationTextMessage"
+              value="Hi [First Name], this is Emkari! We received your message about “[Subject]” and we’ll get back to you soon. Thank you for reaching out!"
+            />
+
+            <input
+              type="hidden"
+              name="answeredTextMessage"
+              value="Hi [First Name], Emkari here! Your message has been answered. Check your email when you have a moment. We’re excited to connect with you!"
+            />
+
+            <div class="form-row">
+              <label>
+                <span>First name</span>
+                <input type="text" name="firstName" autocomplete="given-name" required />
+              </label>
+
+              <label>
+                <span>Last name</span>
+                <input type="text" name="lastName" autocomplete="family-name" required />
+              </label>
+            </div>
+
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+
+            <label>
+              <span>Subject</span>
+              <input type="text" name="subject" required />
+            </label>
+
+            <label>
+              <span>Phone number <em>optional</em></span>
+              <input type="tel" name="phone" autocomplete="tel" placeholder="For text updates" />
+            </label>
+
+            <label class="checkbox-label">
+              <input type="checkbox" name="smsConsent" value="yes" />
+              <span>
+                I agree to receive SMS updates from Emkari about my contact form inquiry.
+                Message and data rates may apply. Reply STOP to opt out, HELP for help.
+              </span>
+            </label>
+
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="6" required></textarea>
+            </label>
+
+            <button type="submit">Send message</button>
+          </form>
+
+          <p class="contact-fallback">
+            Prefer text? Reach us at <a href="sms:+18337351200">(833) 735-1200</a>.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
