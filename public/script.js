@@ -44,8 +44,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", updateHeader);
   window.addEventListener("resize", updateHeader);
-  window.addEventListener("load", updateHeader);
-
   updateHeader();
 
   if (contactForm) {
