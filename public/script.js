@@ -3,17 +3,19 @@ window.addEventListener("DOMContentLoaded", () => {
   const logo = document.querySelector(".logo");
   const video = document.querySelector(".bg-video");
   const contactForm = document.querySelector("#contactForm");
+
   const API_BASE_URL = "https://emkari.onrender.com";
 
   // Mobile autoplay fallback — some browsers need an explicit .play() call
   if (video) {
     video.muted = true;
+
     const playPromise = video.play();
 
     if (playPromise !== undefined) {
       playPromise.catch(() => {
         const tryPlay = () => {
-          video.play();
+          video.play().catch(() => {});
           document.removeEventListener("touchstart", tryPlay);
           document.removeEventListener("click", tryPlay);
         };
@@ -50,6 +52,14 @@ window.addEventListener("DOMContentLoaded", () => {
     contactForm.addEventListener("submit", async (event) => {
       event.preventDefault();
 
+      const submitButton = contactForm.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton ? submitButton.textContent : "";
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+      }
+
       const formData = new FormData(contactForm);
 
       const payload = {
@@ -73,15 +83,20 @@ window.addEventListener("DOMContentLoaded", () => {
 
         const result = await response.json();
 
-        if (result.success) {
-          contactForm.reset();
-          alert("Your message has been sent. Thank you for reaching out!");
-        } else {
-          alert("Something went wrong. Please try again.");
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || "Contact form submission failed.");
         }
+
+        contactForm.reset();
+        alert("Your message has been sent. Thank you for reaching out!");
       } catch (error) {
-        console.error(error);
+        console.error("Contact form error:", error);
         alert("Something went wrong. Please try again.");
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
       }
     });
   }
