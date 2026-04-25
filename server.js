@@ -21,11 +21,15 @@ const twilioClient = twilio(
 const mailTransporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
-  secure: true,
+  secure: Number(process.env.SMTP_PORT) === 465,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+});
+
+app.get("/", (req, res) => {
+  res.send("Emkari contact backend is running.");
 });
 
 app.post("/contact", async (req, res) => {
@@ -41,34 +45,38 @@ app.post("/contact", async (req, res) => {
     } = req.body;
 
     await mailTransporter.sendMail({
-        from: `"Emkari Website" <${process.env.SMTP_USER}>`,
-        to: "hello@emkari.com",
-        replyTo: email,
-        subject: `New Emkari Form Submission: ${subject}`,
-        priority: "high",
-        headers: {
-            "X-Priority": "1",
-            "X-MSMail-Priority": "High",
-            Importance: "high",
-        },
-        html: `
-            <div style="font-family: Arial, sans-serif; color: #302a27; line-height: 1.6;">
-            <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+      from: `"Emkari Website" <${process.env.SMTP_USER}>`,
+      to: "hello@emkari.com",
+      replyTo: email,
+      subject: `New Emkari Form Submission: ${subject}`,
+      priority: "high",
+      headers: {
+        "X-Priority": "1",
+        "X-MSMail-Priority": "High",
+        Importance: "high",
+      },
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #302a27; line-height: 1.6;">
+          <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+          <p><strong>SMS Consent:</strong> ${smsConsent ? "Yes" : "No"}</p>
+          <p><strong>Subject:</strong> ${subject}</p>
 
-            <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
+          <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
 
-            <p><strong>Message:</strong></p>
-            <p>${message}</p>
-            </div>
-        `,
-        });
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        </div>
+      `,
+    });
 
     if (phone && smsConsent) {
-        await twilioClient.messages.create({
-            body: `Hi ${firstName}, this is Emkari! We received your message about “${subject}” and we’ll get back to you soon. Thank you for reaching out! Reply STOP to opt out.`,
-            from: process.env.TWILIO_PHONE_NUMBER,
-            to: phone,
-        });
+      await twilioClient.messages.create({
+        body: `Hi ${firstName}, this is Emkari! We received your message about “${subject}” and we’ll get back to you soon. Thank you for reaching out! Reply STOP to opt out.`,
+        from: process.env.TWILIO_PHONE_NUMBER,
+        to: phone,
+      });
     }
 
     res.status(200).json({
@@ -116,6 +124,8 @@ app.post("/mark-answered", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log("Emkari contact backend running on port 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Emkari contact backend running on port ${PORT}`);
 });
