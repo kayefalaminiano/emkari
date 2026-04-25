@@ -703,6 +703,12 @@ body {
     padding: 64px 18px 52px;
   }
 
+  .contact-hero h1 {
+  line-height: 1.08;
+  padding-bottom: 0.08em;
+  overflow: visible;
+}
+
   .contact-section {
     padding: 42px 16px 64px;
   }
