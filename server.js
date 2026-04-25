@@ -58,13 +58,7 @@ app.post("/contact", async (req, res) => {
       html: `
         <div style="font-family: Arial, sans-serif; color: #302a27; line-height: 1.6;">
           <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-          <p><strong>SMS Consent:</strong> ${smsConsent ? "Yes" : "No"}</p>
-          <p><strong>Subject:</strong> ${subject}</p>
-
           <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
-
           <p><strong>Message:</strong></p>
           <p>${message}</p>
         </div>
