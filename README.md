@@ -1,8 +1,6 @@
 # emkari
 ## Overview
 
-## Overview
-
 **Brand Name:** emkari
 
 **Project Type:** Small business website
