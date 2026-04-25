@@ -3,6 +3,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const logo = document.querySelector(".logo");
   const video = document.querySelector(".bg-video");
   const contactForm = document.querySelector("#contactForm");
+  const API_BASE_URL = "https://emkari.onrender.com";
 
   // Mobile autoplay fallback — some browsers need an explicit .play() call
   if (video) {
@@ -62,7 +63,7 @@ window.addEventListener("DOMContentLoaded", () => {
       };
 
       try {
-        const response = await fetch("http://localhost:3000/contact", {
+        const response = await fetch(`${API_BASE_URL}/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
