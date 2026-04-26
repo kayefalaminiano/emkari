@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emkari — Coming Soon</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=BBH+Bartle&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/png" href="logos/cat_favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="index.html" class="header-link" aria-label="Go to homepage">
+          <span class="header-logo"></span>
+        </a>
+
+        <nav class="header-nav" aria-label="Social links">
+          <a href="https://www.instagram.com/emkari_cafe/" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.tiktok.com/@emkari_cafe" target="_blank" rel="noreferrer">TikTok</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <video
+          class="bg-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          x5-playsinline
+          preload="auto"
+          poster="logos/video-poster.jpg"
+        >
+          <source src="overlay.mp4" type="video/mp4" />
+        </video>
+
+        <div class="overlay"></div>
+
+        <div class="hero-content">
+          <img src="logos/cat (2).png" alt="Emkari logo" class="logo" />
+
+          <p class="tagline">
+            <span class="tagline-top">our culture,</span>
+            <span class="tagline-bottom">your cup</span>
+          </p>
+        </div>
+      </section>
+
+      <section class="coming-soon-wrap">
+        <div class="coming-frame">
+          <img src="logos/star.png" alt="" class="spinning-star star-left" />
+
+          <h1 class="coming-lockup">
+            <span>COMING</span>
+            <span>SOON</span>
+          </h1>
+
+          <p class="coming-contact-line">
+            Want to connect with us?
+            <a href="contact.html">Contact us here.</a>
+          </p>
+
+          <img src="logos/star.png" alt="" class="spinning-star star-right" />
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>

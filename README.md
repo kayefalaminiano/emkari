@@ -8,24 +8,28 @@ notion: https://www.notion.so/EMKARI-WEBSITE-PLAN-33f9221450e8803c8431e842eb016c
 
 **Project Type:** Small business website
 
+**Current Website:** https://www.emkari.com/
+
+**Current State:** Coming soon landing page
+
+**Main Goal:** Create polished website that clearly communicates the brand, showcases products, encourages inquires/future purchases.
+
 **Tools:** 
 
+- DESIGN
+    - Figma
+    - Canva
+    - Adobe Creative Cloud (Suite)
+    - VS Code
 - **CODE**
     - HTML
     - CSS
     - JavaScript
-- DESIGN TOOLS
-    - Figma
-    - VS Code
-    - Canva
-    - Adobe Creative Cloud (Suite)
 - PUBLISHING
     - GitHub
-    - 
+    - SquareSpace (?) - Domain hosting / deployment platform
 
-**Timeline:** 5 weeks
-
-**Main Goal:** Build a clear brand direction and complete the final website design by the end of week 5.
+**Timeline:** 3-4 weeks
 
 ---
 
@@ -47,220 +51,225 @@ OTHER PAGES/DOCS
 
 - vietnam
 - philippines
-- everyone!
+- everyone that enjoys cozy, elevated drinks, and modern cafe branding
 
-Keywords:
+**Brand Feel:**
 
-- 
-- 
+- Cozy
+- Modern
+- Cultural
+- Elevated
+- Intentional
+- Clean
 
-**How I want the brand to feel:**
+**Core Website Goals:**
 
-[cozy, modern, elevated]
+- build trust
+- show what Emkari is about
+- showcase drinks and brand identity
+- drive inquires
+- prepare for future product selling
 
-**Main Website Goal:**
+**Current Brand Message**
 
-[build trust, showcase products, drive inquiries, sell products]
-
----
-
-### Week 1 - Moodboarding + Inspiration
-
-**Focus:** Figure out the visual direction of Emkari.
-
-**Goals:**
-
-- Define the brand feeling
-- Gather visual inspiration
-- Explore possible directions
-
-**Deliverables:**
-
-- Main moodboard
-- Brand keywords
-- Inspiration notes
-
-**End of Week 1:**
-
-What direction feels most like Emkari?
+> “Our culture, your cup”
+> 
 
 ---
 
-### Week 2 - Brand Identity
+## Key Brand Assets to Gather in One Place
 
-**Focus:** Turn inspiration into real brand choices.
-
-**Goals:**
-
-- Choose visual identity
-- Narrow down brand style
-- Create a mini brand guide
-
-**Tasks:**
-
-- [ ]  Pick primary color palette
-- [ ]  Pick secondary or accent colors
-- [ ]  Choose heading font
-- [ ]  Choose body font
-- [ ]  Explore logo ideas
-- [ ]  Decide image style
-- [ ]  Decide button and icon style
-- [ ]  Write tone of voice notes
-
-**Deliverables:**
-
-- Final colors
-- Final fonts
-- Logo direction
-- Mini brand guide
-
-**End of Week 2:**
-
-Does the brand look consistent and recognizable?
+- Logo or logo direction
+- Primary color hex codes
+- Secondary/accent color hex codes
+- Heading font
+- Body font
+- Button style
+- Icon style
+- Photo/image style
+- Tone of voice
+- Moodboard references
 
 ---
 
-### Week 3 - Website Structure + Content Planning
+## Website Pages
 
-**Focus:** Plan the pages and content before coding.
+### 1. Home
 
-website: about.html
+Purpose: introduce the brand and give a strong first impression.
 
-- highlight each part of emkari
-    - em - emma
-    - ka - kaye
-    - ari - arielle
-- when hovering over each part, highlight color differently
-    - either click on the part and new page/pop up
-    - or hover and image of us appears for each ?
+**Sections**
 
-website: home.html
+- Hero section
+- Short brand intro
+- Featured drinks section
+- About preview
+- Why Emkari is special
+- CTA section
+- Social links / footer
 
-DRINKS
+**Notes**
 
-- 3 listed fav drinks
-- small button to view all drinks below
+- Show 3 favorite drinks
+- Add a small button underneath to view all drinks
 
-website: menu
+---
 
-- click on drink, displays drink, drag cursor to rotate drink/drink rotate animation
+### 2. About
 
-**Goals:**
+Purpose: tell the story behind the brand and the people behind it.
 
-- Decide what pages are needed
-- Create structure
-- Draft content
+**Notes**
 
-**Tasks:**
+- Highlight each part of Emkari:
+    - em = Emma
+    - ka = Kaye
+    - ari = Arielle
+- Possible interaction ideas:
+    - hover over each name part to highlight in a different color
+    - click each part to open a small pop-up or new section
+    - hover and show an image of each person
 
-- [ ]  List website pages
-- [ ]  Create sitemap
-- [ ]  Plan navigation menu
-- [ ]  Outline each page section
-- [ ]  Sketch wireframes
-- [ ]  Draft homepage copy
-- [ ]  Draft about page copy
-- [ ]  Draft product/service copy
-- [ ]  Draft CTA buttons
-- [ ]  Draft FAQ content
+**Suggestion**
 
-**Possible Pages:**
+Keep this page story-driven and personal, but still clean and modern.
+
+---
+
+### 3. Menu / Drinks
+
+Purpose: showcase products in a visually interesting way.
+
+**Notes**
+
+- Click on a drink to display it
+- Let the user drag the cursor to rotate the drink
+- or include a drink rotate animation
+
+**Suggestion**
+
+This could be a more interactive menu page, but if time is tight, start with:
+
+- drink cards
+- photos
+- short descriptions
+- flavor inspiration
+Then add the rotation effect later as a stretch feature.
+
+---
+
+### 4. FAQ
+
+Purpose: answer common customer questions.
+
+**Possible topics**
+
+- What kind of drinks do you offer?
+- Where are you located?
+- Do you do pop-ups or events?
+- How can I place an order?
+- Do you offer seasonal drinks?
+- Do you cater?
+
+---
+
+### 5. Contact
+
+Purpose: make it easy for people to reach out.
+
+**Possible content**
+
+- inquiry form
+- email
+- Instagram
+- TikTok
+- event or collab inquiries
+
+---
+
+## Suggested Sitemap
 
 - Home
 - About
-- Shop / Services
+- Menu
 - FAQ
 - Contact
 
-**Deliverables:**
+Optional future pages:
 
+- Shop
+- Events / Pop-Ups
+- Gallery
+- Order Online
+
+---
+
+## Week 1: Brand + Structure
+
+**Focus:** make all major decisions fast.
+
+**Tasks**
+
+- Finalize moodboard
+- Finalize colors and fonts
+- Create mini brand guide
+- Finalize sitemap
+- Outline all pages
+- Draft core copy for Home, About, Menu, FAQ, Contact
+- Sketch quick wireframes
+
+**Deliverables**
+
+- Mini brand guide
 - Sitemap
 - Wireframes
-- Page outlines
 - Draft copy
 
-**End of 3:**
+---
 
-Do I know what content goes on each page?
+## Week 2: UI Design + Core Build
+
+**Focus:** design and build the important pages.
+
+**Tasks**
+
+- Design the homepage and secondary pages in Figma
+- Build HTML/CSS structure
+- Add navigation
+- Add hero section
+- Add featured drinks
+- Add About page story section
+- Add FAQ and Contact
+- Start responsive design
+
+**Deliverables**
+
+- Main page designs
+- Working website structure
+- Core styling finished
 
 ---
 
-### Week 4 - UI Design + Build Start
+## Week 3: Polish + Launch Prep
 
-**Focus:** Design screens and begin coding.
+**Focus:** finish everything and test.
 
-**Goals:**
+**Tasks**
 
-- Translate wireframes into real layouts
-- Start HTML/CSS build
-- Add light JavaScript where needed
+- Refine all page styling
+- Add JavaScript interactions
+- Improve mobile layout
+- Finalize copy
+- Optimize images
+- Test links and buttons
+- Clean code and folders
+- Do final review
+- Publish through GitHub/deployment platform
 
-**Tasks:**
+**Deliverables**
 
-- [ ]  Design homepage layout
-- [ ]  Design secondary page layouts
-- [ ]  Decide spacing system
-- [ ]  Decide section styles
-- [ ]  Build HTML file structure
-- [ ]  Build CSS base styles
-- [ ]  Style navigation
-- [ ]  Style hero section
-- [ ]  Style buttons and cards
-- [ ]  Add responsive layout adjustments
-- [ ]  Add light JavaScript interactions
-
-**JavaScript Ideas:**
-
-- Mobile nav toggle
-- FAQ accordion
-- Image slider
-- Scroll effect
-- Button interaction
-
-**Deliverables:**
-
-- Homepage design
-- Styled core components
-- Started site build
-- Responsive design direction
-
-**End of Week Check-In:**
-
-Does the coded design match the brand direction?
-
----
-
-### Week 5 - Final Design + Polish
-
-**Focus:** Finish, refine, and prepare for launch.
-
-**Goals:**
-
-- Finalize all pages
-- Polish design consistency
-- Test everything
-
-**Tasks:**
-
-- [ ]  Finish remaining pages
-- [ ]  Review mobile responsiveness
-- [ ]  Clean up CSS
-- [ ]  Organize folders and files
-- [ ]  Check typography consistency
-- [ ]  Check spacing consistency
-- [ ]  Test links and buttons
-- [ ]  Test JavaScript interactions
-- [ ]  Revise images
-- [ ]  Revise copy
-- [ ]  Final review
-
-**Deliverables:**
-
-- Final website design
-- Clean code structure
-- Launch-ready version
-- Final checklist completed
-
-**End of Week 5:**
+- Final website
+- Responsive layout
+- Launch-ready site
 
 Is the site polished, clear, and aligned with the brand?
