@@ -1,0 +1,42 @@
+:root {
+  --cream: #f4e6c0;
+  --coffee: #604a36;
+  --black: #302a27;
+  --matcha: #70892e;
+  --green: var(--matcha);
+  --title-font: "BBH Bartle", serif;
+  --body-font: "Geist", sans-serif;
+  --header-height: 76px;
+  --content-width: 820px;
+  --content-gutter: 24px;
+  --liquid-crest-height: clamp(108px, 12vw, 168px);
+  --liquid-crest-visible: clamp(54px, 8vw, 104px);
+  --liquid-wave-one-height: clamp(68px, 7vw, 98px);
+  --liquid-wave-two-height: clamp(86px, 9vw, 124px);
+  --liquid-surface-offset: clamp(22px, 4vw, 38px);
+  --liquid-surface-secondary-offset: clamp(10px, 2.8vw, 24px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  color: var(--black);
+  background: var(--cream);
+  font-family: var(--body-font);
+}
+
+img, svg, video { max-width: 100%; }
+
+button, input, textarea, select { font: inherit; }

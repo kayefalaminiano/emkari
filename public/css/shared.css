@@ -1,0 +1,296 @@
+/* Header */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+  width: 100%;
+  height: var(--header-height);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background-color 0.25s ease;
+}
+
+.site-header.scrolled { background: var(--cream); }
+
+.header-inner {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.header-logo {
+  display: block;
+  width: clamp(85px, 10vw, 165px);
+  aspect-ratio: 170 / 60;
+  background-color: var(--cream);
+  mask: url("../logos/emkari_cream.png") center / contain no-repeat;
+  -webkit-mask: url("../logos/emkari_cream.png") center / contain no-repeat;
+  transition: background-color 0.25s ease;
+}
+
+.site-header.scrolled .header-logo { background-color: var(--coffee); }
+
+.header-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 36px;
+}
+
+.header-nav a {
+  position: relative;
+  color: var(--cream);
+  font-size: clamp(1.1rem, 1.25vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease, opacity 0.2s ease;
+}
+
+.site-header.scrolled .header-nav a { color: var(--coffee); }
+
+.header-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transition: width 0.22s ease, opacity 0.22s ease;
+}
+
+.header-nav a:hover::after,
+.header-nav a:focus-visible::after {
+  width: 100%;
+  opacity: 1;
+}
+
+/* Shared UI */
+.primary-button {
+  min-height: clamp(40px, 4vw, 48px);
+  padding: 0 clamp(16px, 2vw, 22px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cream);
+  background: var(--coffee);
+  border: 2px solid transparent;
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  font-weight: 800;
+  letter-spacing: clamp(0.08em, 0.7vw, 0.12em);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.primary-button:hover,
+.primary-button:focus-visible {
+  opacity: 0.86;
+  transform: translateY(-2px);
+}
+
+.contact-kicker {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.checkbox-label {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 12px !important;
+  color: var(--black) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.45;
+  text-transform: none !important;
+}
+
+.checkbox-label input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex: 0 0 auto;
+  accent-color: var(--coffee);
+}
+
+/* Footer */
+
+.site-footer {
+  width: 100%;
+  padding: clamp(28px, 4vw, 52px) var(--content-gutter);
+  color: var(--coffee);
+  background: var(--cream);
+}
+
+.site-footer.footer-inverted {
+  color: var(--cream);
+  background: var(--coffee);
+}
+
+.footer-inner {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 0.7fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 52px);
+}
+
+.footer-brand {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.footer-logo {
+  display: block;
+  width: clamp(105px, 12vw, 160px);
+  height: auto;
+}
+
+.footer-socials {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.footer-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  text-decoration: none;
+}
+
+.footer-brand .footer-socials {
+  position: relative;
+  left: -6px;
+}
+
+.footer-socials svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+.footer-info,
+.footer-links {
+  display: grid;
+  gap: 8px;
+}
+
+.footer-info p {
+  margin: 0;
+}
+
+.footer-info a,
+.footer-links a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+.footer-links a {
+  width: fit-content;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.footer-info a:hover,
+.footer-info a:focus-visible,
+.footer-links a:hover,
+.footer-links a:focus-visible,
+.footer-socials a:hover,
+.footer-socials a:focus-visible {
+  opacity: 0.72;
+}
+
+@media (max-width: 900px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .footer-brand {
+    justify-items: center;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  .footer-links a {
+    width: auto;
+  }
+
+  .footer-brand .footer-socials {
+      position: relative;
+      left: -6px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root { --header-height: 62px; --content-gutter: 16px; }
+  .site-header { padding: 10px 14px; }
+  .header-logo { width: 98px; }
+  .header-nav { gap: 12px; flex-wrap: nowrap; }
+  .header-nav a { font-size: 0.88rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-brand .footer-socials {
+      position: relative;
+      left: -6px;
+  }
+}
+
+@media (max-width: 430px) {
+  :root { --header-height: 56px; --content-gutter: 12px; }
+  .site-header { padding: 8px 12px; }
+  .header-logo { width: 84px; }
+  .header-nav { gap: 10px; }
+  .header-nav a { font-size: 0.8rem; }
+  .footer-brand .footer-socials {
+      position: relative;
+      left: -6px;
+  }
+}
+
+@media (max-width: 380px) {
+  :root { --header-height: 50px; --content-gutter: 10px; }
+  .site-header { padding: 6px 10px; }
+  .header-logo { width: 76px; }
+  .header-nav { gap: 8px; }
+  .header-nav a { font-size: 0.74rem; }
+  .footer-brand .footer-socials {
+      position: relative;
+      left: -6px;
+  }
+}

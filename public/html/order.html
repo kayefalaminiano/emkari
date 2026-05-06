@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Cookies — Emkari</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Geist:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="../logos/cat_favicon.png" />
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/shared.css" />
+    <link rel="stylesheet" href="../css/order.css" />
+  </head>
+
+  <body class="order-page">
+        <header class="site-header scrolled">
+      <div class="header-inner">
+        <a href="../index.html" class="header-link" aria-label="Go to homepage"><span class="header-logo"></span></a>
+        <nav class="header-nav" aria-label="Site navigation">
+          <a href="about.html">About</a>
+          <a href="order.html">Order</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="order-main">
+      <section class="order-section" aria-labelledby="order-form-title">
+        <form class="order-card" id="orderForm">
+          <div class="order-card-copy">
+            <p class="contact-kicker">Build your box</p>
+
+            <h2 id="order-form-title">Cookie Order Form</h2>
+
+            <div class="order-info-grid">
+              <div class="order-notes">
+                <h3>Read before you order</h3>
+
+                <ul>
+                  <li>Cookies are made to order, so please allow time for preparation.</li>
+                  <li>Pickup is available in Mira Mesa, San Diego. Delivery may be available depending on location.</li>
+                  <li>Orders are not confirmed until payment details are sent and confirmed by text.</li>
+                  <li>Please include any allergies or special requests in the notes section.</li>
+                  <li>Cookies may contain milk, wheat, soy, pistachios, hazelnuts, and other tree nuts.</li>
+                </ul>
+              </div>
+
+              <div class="pricing-list" aria-label="Cookie pricing">
+                <h3>Prices</h3>
+                <p><strong>1 cookie:</strong> $6</p>
+                <p><strong>3 cookies:</strong> $15</p>
+                <p><strong>5 cookies:</strong> $20</p>
+                <p><strong>7 cookies:</strong> $24</p>
+                <p><strong>8+ cookies:</strong> Priced using the 7-cookie unit rate, rounded down.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label>
+              <span>First name</span>
+              <input
+                type="text"
+                name="firstName"
+                autocomplete="given-name"
+                required
+              />
+            </label>
+
+            <label>
+              <span>Last name</span>
+              <input
+                type="text"
+                name="lastName"
+                autocomplete="family-name"
+                required
+              />
+            </label>
+          </div>
+
+          <label>
+            <span>Phone number for SMS updates</span>
+            <input
+              type="tel"
+              name="phone"
+              autocomplete="tel"
+              placeholder="(555) 555-5555"
+              required
+            />
+          </label>
+
+          <fieldset class="order-fieldset">
+            <legend>Choose your cookies</legend>
+
+            <p class="fieldset-note"><em>Note: Strawberry add-ons are optional.</em><span>Ex: if you order 3 Dubai cookies, but only want strawberries on 2, enter 3 for Qty and 2 for Strawberries.</span></p>
+
+            <div class="order-flavor-row">
+              <div>
+                <strong>Dubai</strong>
+                <span>Pistachio cream, kataifi, marshmallow, milk powder, and cocoa powder</span>
+              </div>
+
+              <label>
+                <span>Qty</span>
+                <input
+                  type="number"
+                  name="dubaiQty"
+                  min="0"
+                  max="99"
+                  value="0"
+                  inputmode="numeric"
+                />
+              </label>
+
+              <label class="strawberry-qty">
+                <span>Add Strawberry +$1</span>
+                <input
+                  type="number"
+                  name="dubaiStrawberry"
+                  min="0"
+                  max="0"
+                  value="0"
+                  inputmode="numeric"
+                />
+              </label>
+            </div>
+
+            <div class="order-flavor-row">
+              <div>
+                <strong>Ferrero Rocher</strong>
+                <span>Nutella, dark chocolate ganache, hazelnuts, kataifi, marshmallow, milk powder, and cocoa powder</span>
+              </div>
+
+              <label>
+                <span>Qty</span>
+                <input
+                  type="number"
+                  name="ferreroQty"
+                  min="0"
+                  max="99"
+                  value="0"
+                  inputmode="numeric"
+                />
+              </label>
+
+              <label class="strawberry-qty">
+                <span>Add Strawberry +$1</span>
+                <input
+                  type="number"
+                  name="ferreroStrawberry"
+                  min="0"
+                  max="0"
+                  value="0"
+                  inputmode="numeric"
+                />
+              </label>
+            </div>
+
+            <div class="order-flavor-row">
+              <div>
+                <strong>Biscoff</strong>
+                <span>Biscoff cookies and cookie butter, marshmallow, milk powder, and cocoa powder</span>
+              </div>
+
+              <label>
+                <span>Qty</span>
+                <input
+                  type="number"
+                  name="biscoffQty"
+                  min="0"
+                  max="99"
+                  value="0"
+                  inputmode="numeric"
+                />
+              </label>
+
+              <label class="strawberry-qty">
+                <span>Add Strawberry +$1</span>
+                <input
+                  type="number"
+                  name="biscoffStrawberry"
+                  min="0"
+                  max="0"
+                  value="0"
+                  inputmode="numeric"
+                />
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="order-fieldset compact-fieldset">
+            <legend>Pickup or delivery</legend>
+
+            <div class="choice-grid">
+              <label class="choice-card">
+                <input type="radio" name="fulfillment" value="pickup" checked />
+                <span>Pickup</span>
+              </label>
+
+              <label class="choice-card">
+                <input type="radio" name="fulfillment" value="delivery" />
+                <span>Delivery request</span>
+              </label>
+            </div>
+
+            <p class="pickup-note" id="pickupNote">
+              <em>Pickup address will be sent via text message once your order is placed.</em>
+            </p>
+          </fieldset>
+
+          <label class="delivery-address" id="deliveryAddress">
+            <span>Street address</span>
+            <input
+              type="text"
+              name="deliveryStreet"
+              placeholder="123 Main St Apt 4"
+            />
+
+            <span>Delivery ZIP code</span>
+            <input
+              type="text"
+              name="deliveryZip"
+              inputmode="numeric"
+              pattern="[0-9]{5}"
+              maxlength="5"
+              placeholder="92126"
+            />
+
+            <p class="delivery-note">
+              <em>Please enter your correct delivery address.</em>
+              <span>Delivery fees are estimates and may change if the address does not match the ZIP code entered.</span>
+            </p>
+
+            <small class="delivery-estimate" id="deliveryEstimate">
+              Enter your ZIP code to estimate delivery.
+            </small>
+          </label>
+
+          <fieldset class="order-fieldset compact-fieldset">
+            <legend>Pickup / delivery time</legend>
+
+            <p class="fieldset-note">
+              <em>Orders must be scheduled at least one day in advance.</em>
+            </p>
+
+            <div class="form-row">
+              <label>
+                <span>Date</span>
+                <input type="date" name="fulfillmentDate" id="fulfillmentDate" required />
+              </label>
+
+              <label>
+                <span>Time</span>
+                <select name="fulfillmentTime" id="fulfillmentTime" required>
+                  <option value="">Select a time</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="order-fieldset compact-fieldset">
+            <legend>Payment method</legend>
+
+            <div class="choice-grid payment-grid">
+              <label class="choice-card">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="zelle"
+                  required
+                />
+                <span>Zelle</span>
+              </label>
+
+              <label class="choice-card">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="cashapp"
+                />
+                <span>Cash App</span>
+              </label>
+
+              <label class="choice-card">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="venmo"
+                />
+                <span>Venmo</span>
+              </label>
+
+              <label class="choice-card">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="cash"
+                />
+                <span>Cash</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="payment-details" id="paymentDetails" aria-live="polite"></div>
+
+          <label>
+            <span>Order notes <em>optional</em></span>
+            <textarea
+              name="notes"
+              rows="4"
+              placeholder="Allergies, pickup timing, delivery details, or special requests"
+            ></textarea>
+          </label>
+
+          <label class="checkbox-label">
+            <input type="checkbox" name="smsConsent" value="yes" required />
+
+            <span>
+              I agree to receive SMS updates from Emkari about this order.
+              Message and data rates may apply. Reply STOP to opt out, HELP for help.
+            </span>
+          </label>
+
+          <aside class="order-summary" id="orderSummary" aria-live="polite">
+            <h3>Order summary</h3>
+
+            <p class="summary-line">
+              <span>Total cookies</span>
+              <strong id="summaryCount">0</strong>
+            </p>
+
+            <p class="summary-line">
+              <span>Cookie subtotal</span>
+              <strong id="summarySubtotal">$0</strong>
+            </p>
+
+            <p class="summary-line">
+              <span>Strawberry add-ons</span>
+              <strong id="summaryStrawberries">$0</strong>
+            </p>
+
+            <p class="summary-line">
+              <span>Estimated delivery</span>
+              <strong id="summaryDelivery">$0</strong>
+            </p>
+
+            <p class="summary-total">
+              <span>Estimated total</span>
+              <strong id="summaryTotal">$0</strong>
+            </p>
+
+            <small>Delivery fee, if any, can be confirmed by text.</small>
+          </aside>
+
+          <button type="submit">Submit order</button>
+        </form>
+      </section>
+    </main>
+
+        <footer class="site-footer footer-inverted">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" aria-label="Go to homepage"><img src="../logos/emkari_cream.png" alt="Emkari" class="footer-logo" /></a>
+          <div class="footer-socials" aria-label="Social links">
+            <a href="https://www.instagram.com/emkari_cafe/" target="_blank" rel="noreferrer" aria-label="Emkari Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M 8 3 C 5.239 3 3 5.239 3 8 L 3 16 C 3 18.761 5.239 21 8 21 L 16 21 C 18.761 21 21 18.761 21 16 L 21 8 C 21 5.239 18.761 3 16 3 L 8 3 z M 18 5 C 18.552 5 19 5.448 19 6 C 19 6.552 18.552 7 18 7 C 17.448 7 17 6.552 17 6 C 17 5.448 17.448 5 18 5 z M 12 7 C 14.761 7 17 9.239 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 z M 12 9 A 3 3 0 0 0 9 12 A 3 3 0 0 0 12 15 A 3 3 0 0 0 15 12 A 3 3 0 0 0 12 9 z"></path></svg></a>
+            <a href="https://www.tiktok.com/@emkari_cafe" target="_blank" rel="noreferrer" aria-label="Emkari TikTok"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6,3c-1.64497,0 -3,1.35503 -3,3v12c0,1.64497 1.35503,3 3,3h12c1.64497,0 3,-1.35503 3,-3v-12c0,-1.64497 -1.35503,-3 -3,-3zM12,7h2c0,1.005 1.471,2 2,2v2c-0.605,0 -1.332,-0.26584 -2,-0.71484v3.71484c0,1.654 -1.346,3 -3,3c-1.654,0 -3,-1.346 -3,-3c0,-1.654 1.346,-3 3,-3v2c-0.552,0 -1,0.449 -1,1c0,0.551 0.448,1 1,1c0.552,0 1,-0.449 1,-1z"></path></svg></a>
+          </div>
+        </div>
+        <div class="footer-info">
+          <p>Based in San Diego, CA</p>
+          <p><a href="tel:+16194950207">(619) 495-0207</a></p>
+          <p><a href="mailto:hello@emkari.com">hello@emkari.com</a></p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="order.html">Order</a>
+          <a href="contact.html">Contact</a>
+          <a href="about.html">About</a>
+          <a href="privacy.html">Privacy Notice</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+  </body>
+</html>

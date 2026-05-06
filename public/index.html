@@ -1,32 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+    <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emkari — Coming Soon</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=BBH+Bartle&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=Geist:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" href="logos/cat_favicon.png" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/home.css" />
   </head>
 
   <body>
-    <header class="site-header">
+        <header class="site-header">
       <div class="header-inner">
-        <a href="index.html" class="header-link" aria-label="Go to homepage">
-          <span class="header-logo"></span>
-        </a>
-
-        <nav class="header-nav" aria-label="Social links">
-          <a href="https://www.instagram.com/emkari_cafe/" target="_blank" rel="noreferrer">Instagram</a>
-          <a href="https://www.tiktok.com/@emkari_cafe" target="_blank" rel="noreferrer">TikTok</a>
-          <a href="contact.html">Contact</a>
+        <a href="index.html" class="header-link" aria-label="Go to homepage"><span class="header-logo"></span></a>
+        <nav class="header-nav" aria-label="Site navigation">
+          <a href="html/about.html">About</a>
+          <a href="html/order.html">Order</a>
+          <a href="html/contact.html">Contact</a>
         </nav>
       </div>
     </header>
@@ -59,24 +53,199 @@
         </div>
       </section>
 
-      <section class="coming-soon-wrap">
-        <div class="coming-frame">
-          <img src="logos/star.png" alt="" class="spinning-star star-left" />
+      <section class="fill-section" aria-labelledby="landing-title">
+        <div class="fill-liquid" aria-hidden="true">
+          <div class="liquid-fill">
+            <div class="liquid-cap">
+              <svg viewBox="0 0 1440 240" preserveAspectRatio="none">
+                <path
+                  d="M0,110
+                    C180,84 332,82 484,100
+                    C666,122 816,124 992,100
+                    C1170,76 1318,74 1440,92
+                    L1440,240
+                    L0,240
+                    Z"
+                  fill="#604a36"
+                ></path>
+              </svg>
+            </div>
 
-          <h1 class="coming-lockup">
-            <span>COMING</span>
-            <span>SOON</span>
+            <div class="liquid-body"></div>
+
+            <div class="fill-wave fill-wave-one"></div>
+            <div class="fill-wave fill-wave-two"></div>
+
+            <span class="fill-bubble bubble-one"></span>
+            <span class="fill-bubble bubble-two"></span>
+            <span class="fill-bubble bubble-three"></span>
+            <span class="fill-bubble bubble-four"></span>
+          </div>
+        </div>
+
+        <div class="landing-frame">
+          <p class="section-kicker">Coming Summer 2026</p>
+
+          <h1 class="landing-title" id="landing-title">
+            <span>DRINKS</span>
+            <span>ARE</span>
+            <span>BREWING</span>
           </h1>
 
-          <p class="coming-contact-line">
-            Want to connect with us?
-            <a href="contact.html">Contact us here.</a>
+          <p class="landing-copy">
+            Our matchas and coffees are coming soon. In the meantime, our
+            popular cookies are available to order now!
           </p>
 
-          <img src="logos/star.png" alt="" class="spinning-star star-right" />
+          <div class="landing-actions">
+            <a href="#cookies" class="primary-button">View cookies</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="cookie-section" id="cookies" aria-labelledby="cookie-title">
+        <div class="cookie-shell">
+          <div class="cookie-copy">
+            <p class="section-kicker cookie-kicker">Freshly made to order</p>
+
+            <h2 class="cookie-title" id="cookie-title">
+              <span>Dubai</span>
+              <span>Chewy</span>
+              <span>Cookies</span>
+            </h2>
+
+            <p>
+              Choose your flavors, build your box, and place your order!
+            </p>
+
+            <div class="cookie-showcase" aria-label="Cookie flavors">
+              <article class="cookie-card cookie-card-ferrero">
+                <img src="ferrero.png" alt="Ferrero Rocher cookie" />
+                <div class="cookie-card-info">
+                  <h3>Ferrero Rocher</h3>
+                  <p>Nutella, dark chocolate ganache, hazelnuts, kataifi, marshmallow, milk powder, and cocoa powder.</p>
+                  <p class="cookie-allergens"><strong>Contains:</strong> milk, wheat, hazelnuts, and tree nuts.</p>
+                </div>
+              </article>
+
+              <article class="cookie-card cookie-card-dubai">
+                <img src="dubai.png" alt="Dubai cookie" />
+                <div class="cookie-card-info">
+                  <h3>Dubai</h3>
+                  <p>Pistachio cream, kataifi, marshmallow, milk powder, and cocoa powder.</p>
+                  <p class="cookie-allergens"><strong>Contains:</strong> milk, wheat, pistachios, and tree nuts.</p>
+                </div>
+              </article>
+
+              <article class="cookie-card cookie-card-biscoff">
+                <img src="biscoff.png" alt="Biscoff cookie" />
+                <div class="cookie-card-info">
+                  <h3>Biscoff</h3>
+                  <p>Biscoff cookies and cookie butter, marshmallow, milk powder, and cocoa powder.</p>
+                  <p class="cookie-allergens"><strong>Contains:</strong> milk, wheat, and soy.</p>
+                </div>
+              </article>
+            </div>
+            
+            <h2 class="review-title" id="review-title">Reviews</h2>
+
+            <div class="review-carousel" aria-label="Customer reviews">
+              <div class="review-track" id="reviewTrack">
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“The cookies are so delicious! Plus the seller is super kind!”</p>
+                  <span>— Elvie, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“amazing chewy cookies”</p>
+                  <span>— Mary, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“She is amazing! Clear communication and she was willing to adjust to my last minute changes, she is super nice and sweet and they taste amazing! would get again!”</p>
+                  <span>— Angel, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“Seller so nice and very active! 100/10 will buy again!”</p>
+                  <span>— Princess, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“Very kind and responds fast. Tasted great and the Dubai chocolate with and without strawberry were delicious and had great crunch!”</p>
+                  <span>— Stephanie, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“So good my girlfriend loved them. Would buy again 100%”</p>
+                  <span>— Elijah, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“Best desserts”</p>
+                  <span>— Nat, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“Seller was so sweet ~ the cookies were delicious!! I love how you can add a strawberry too! Please buy from her before I sell her out hahah”</p>
+                  <span>— Uhlee, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“Her Dubai chewy cookies are amazing! She is also very fast at responding”</p>
+                  <span>— Kira, Facebook</span>
+                </article>
+
+                <article class="review-card">
+                  <div class="review-stars">★★★★★</div>
+                  <p>“I love her dubai chewy cookies! super chewy and yummy! and not dry at all. Worth the price!”</p>
+                  <span>— Andrea, Facebook</span>
+                </article>
+              </div>
+            </div>
+
+          <div class="review-actions">
+            <a href="html/order.html" class="primary-button cookie-order-button">
+              Order cookies
+            </a>
+          </div>
+
+          </div>
         </div>
       </section>
     </main>
+    
+        <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" aria-label="Go to homepage"><img src="logos/emkari_coffee.png" alt="Emkari" class="footer-logo" /></a>
+          <div class="footer-socials" aria-label="Social links">
+            <a href="https://www.instagram.com/emkari_cafe/" target="_blank" rel="noreferrer" aria-label="Emkari Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M 8 3 C 5.239 3 3 5.239 3 8 L 3 16 C 3 18.761 5.239 21 8 21 L 16 21 C 18.761 21 21 18.761 21 16 L 21 8 C 21 5.239 18.761 3 16 3 L 8 3 z M 18 5 C 18.552 5 19 5.448 19 6 C 19 6.552 18.552 7 18 7 C 17.448 7 17 6.552 17 6 C 17 5.448 17.448 5 18 5 z M 12 7 C 14.761 7 17 9.239 17 12 C 17 14.761 14.761 17 12 17 C 9.239 17 7 14.761 7 12 C 7 9.239 9.239 7 12 7 z M 12 9 A 3 3 0 0 0 9 12 A 3 3 0 0 0 12 15 A 3 3 0 0 0 15 12 A 3 3 0 0 0 12 9 z"></path></svg></a>
+            <a href="https://www.tiktok.com/@emkari_cafe" target="_blank" rel="noreferrer" aria-label="Emkari TikTok"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M6,3c-1.64497,0 -3,1.35503 -3,3v12c0,1.64497 1.35503,3 3,3h12c1.64497,0 3,-1.35503 3,-3v-12c0,-1.64497 -1.35503,-3 -3,-3zM12,7h2c0,1.005 1.471,2 2,2v2c-0.605,0 -1.332,-0.26584 -2,-0.71484v3.71484c0,1.654 -1.346,3 -3,3c-1.654,0 -3,-1.346 -3,-3c0,-1.654 1.346,-3 3,-3v2c-0.552,0 -1,0.449 -1,1c0,0.551 0.448,1 1,1c0.552,0 1,-0.449 1,-1z"></path></svg></a>
+          </div>
+        </div>
+        <div class="footer-info">
+          <p>Based in San Diego, CA</p>
+          <p><a href="tel:+16194950207">(619) 495-0207</a></p>
+          <p><a href="mailto:hello@emkari.com">hello@emkari.com</a></p>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="html/order.html">Order</a>
+          <a href="html/contact.html">Contact</a>
+          <a href="html/about.html">About</a>
+          <a href="html/privacy.html">Privacy Notice</a>
+        </nav>
+      </div>
+    </footer>
 
     <script src="script.js" defer></script>
   </body>
