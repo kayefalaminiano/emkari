@@ -369,9 +369,25 @@ window.addEventListener("DOMContentLoaded", () => {
     if (order.fulfillmentDate < getTomorrowDateString()) return "Please choose a date that is at least one day from today.";
 
     if (order.fulfillment === "delivery") {
-      if (!order.deliveryStreet.trim()) return "Please add your street address.";
-      if (!order.deliveryZip) return "Please add your delivery ZIP code.";
-      if (!isValidZip(order.deliveryZip)) return "Please enter a valid 5-digit delivery ZIP code.";
+      if (order.cookieSubtotal < 24) {
+        alert("Delivery is only available for cookie orders of $24 or more.");
+        return;
+      }
+
+      if (!order.deliveryStreet.trim()) {
+        alert("Please add your street address.");
+        return;
+      }
+
+      if (!order.deliveryZip) {
+        alert("Please add your delivery ZIP code.");
+        return;
+      }
+
+      if (!isValidZip(order.deliveryZip)) {
+        alert("Please enter a valid 5-digit delivery ZIP code.");
+        return;
+      }
     }
 
     return "";

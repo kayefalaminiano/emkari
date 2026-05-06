@@ -318,7 +318,6 @@ function sanitizeOrder(body = {}) {
     firstName: cleanText(body.firstName),
     lastName: cleanText(body.lastName),
     phone: normalizePhone(body.phone),
-    email: cleanText(body.email),
     smsConsent: Boolean(body.smsConsent),
     fulfillment: cleanText(body.fulfillment),
     fulfillmentDate: cleanText(body.fulfillmentDate),
@@ -382,14 +381,20 @@ function validateOrder(order) {
   }
 
   if (order.fulfillment === "delivery") {
-    if (!order.deliveryStreet || !order.deliveryZip) {
-      return "Please provide your delivery street address and ZIP code.";
-    }
+  const cookieSubtotal = calculateCookieSubtotal(getTotalCookies(order.flavors));
 
-    if (!isValidZip(order.deliveryZip)) {
-      return "Please provide a valid 5-digit delivery ZIP code.";
-    }
+  if (cookieSubtotal < 24) {
+    return "Delivery is only available for cookie orders of $24 or more.";
   }
+
+  if (!order.deliveryStreet || !order.deliveryZip) {
+    return "Please provide your delivery street address and ZIP code.";
+  }
+
+  if (!isValidZip(order.deliveryZip)) {
+    return "Please provide a valid 5-digit delivery ZIP code.";
+  }
+}
 
   return "";
 }
@@ -444,7 +449,7 @@ async function sendOrderEmail(order) {
   await mailTransporter.sendMail({
     from: `"Emkari Cookie Orders" <${process.env.SMTP_USER}>`,
     to: ORDER_EMAIL_TO,
-    replyTo: order.email || process.env.SMTP_USER,
+    replyTo: process.env.SMTP_USER,
     subject: `New Cookie Order ${order.orderId} — ${order.firstName} ${order.lastName}`,
     priority: "high",
     headers: highPriorityHeaders(),
@@ -455,7 +460,6 @@ async function sendOrderEmail(order) {
         <p><strong>Order ID:</strong> ${escapeHtml(order.orderId)}</p>
         <p><strong>Name:</strong> ${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}</p>
         <p><strong>Phone:</strong> ${escapeHtml(order.phone)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(order.email || "Not provided")}</p>
         <p><strong>SMS consent:</strong> ${order.smsConsent ? "Yes" : "No"}</p>
 
         <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
@@ -509,7 +513,6 @@ New Emkari order ${order.orderId}
 
 Name: ${order.firstName} ${order.lastName}
 Phone: ${order.phone}
-Email: ${order.email || "N/A"}
 
 Order: ${formatFlavorText(order.flavors)}
 Total cookies: ${order.totalCookies}
@@ -649,6 +652,7 @@ function normalizePhone(value = "") {
 }
 
 function cleanText(value = "") {
+  if (value === null || value === undefined) return "";
   return String(value).trim();
 }
 

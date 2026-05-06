@@ -427,6 +427,23 @@
   background: rgba(255, 248, 223, 0.72);
 }
 
+.choice-card-with-note {
+  grid-template-rows: auto auto auto;
+}
+
+.choice-note {
+  display: block;
+  max-width: 220px;
+  margin: -2px auto 0;
+  color: var(--order-text-soft);
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 .checkbox-label {
   width: 100%;
   max-width: 100%;
