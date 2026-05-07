@@ -128,7 +128,9 @@ app.get("/privacy", (_req, res) => {
 });
 
 app.get("/", (_req, res) => {
-  res.send("Emkari backend is running.");
+  res.sendFile("index.html", {
+    root: "public",
+  });
 });
 
 app.post("/contact", async (req, res) => {
@@ -405,20 +407,20 @@ function validateOrder(order) {
   }
 
   if (order.fulfillment === "delivery") {
-  const cookieSubtotal = calculateCookieSubtotal(getTotalCookies(order.flavors));
+    const cookieSubtotal = calculateCookieSubtotal(getTotalCookies(order.flavors));
 
-  if (cookieSubtotal < 24) {
-    return "Delivery is only available for cookie orders of $24 or more.";
-  }
+    if (cookieSubtotal < 24) {
+      return "Delivery is only available for cookie orders of $24 or more.";
+    }
 
-  if (!order.deliveryStreet || !order.deliveryZip) {
-    return "Please provide your delivery street address and ZIP code.";
-  }
+    if (!order.deliveryStreet || !order.deliveryZip) {
+      return "Please provide your delivery street address and ZIP code.";
+    }
 
-  if (!isValidZip(order.deliveryZip)) {
-    return "Please provide a valid 5-digit delivery ZIP code.";
+    if (!isValidZip(order.deliveryZip)) {
+      return "Please provide a valid 5-digit delivery ZIP code.";
+    }
   }
-}
 
   return "";
 }

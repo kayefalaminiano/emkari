@@ -289,6 +289,73 @@
   padding: 0 8px;
 }
 
+/* Pickup / delivery time */
+
+.schedule-fieldset {
+  overflow: hidden;
+}
+
+.schedule-fieldset .form-row {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.schedule-fieldset label {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.schedule-fieldset input[type="date"],
+.schedule-fieldset select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: 56px;
+  padding: 0 14px;
+  border: 2px solid var(--order-border-strong);
+  border-radius: 0;
+  background-color: var(--order-input-bg);
+  color: var(--coffee);
+  font-family: var(--body-font);
+  font-size: 1rem;
+  line-height: 1.4;
+  box-sizing: border-box;
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.schedule-fieldset input[type="date"] {
+  text-align: center;
+}
+
+.schedule-fieldset select {
+  cursor: pointer;
+  padding-right: 42px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--coffee) 50%),
+    linear-gradient(135deg, var(--coffee) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.schedule-fieldset input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+/* Remove extra weird inner styling on some browsers */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.65;
+  cursor: pointer;
+}
+
 /* Cookie flavor rows */
 
 .order-flavor-row {
@@ -740,6 +807,21 @@
   .order-flavor-row input[type="number"],
   .strawberry-qty input {
     width: 72px;
+  }
+
+  .schedule-fieldset .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .schedule-fieldset input[type="date"],
+  .schedule-fieldset select {
+    height: 52px;
+    padding: 0 12px;
+    font-size: 0.95rem;
+  }
+
+  .schedule-fieldset select {
+    padding-right: 38px;
   }
 }
 
