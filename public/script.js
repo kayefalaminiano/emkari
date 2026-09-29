@@ -179,6 +179,7 @@ window.addEventListener("DOMContentLoaded", () => {
         phone: data.get("phone"),
         smsConsent: data.get("smsConsent") === "yes",
         message: data.get("message"),
+        website: data.get("website") || "",
       };
 
       setSubmitState(submitButton, true, originalText, "Sending...");
@@ -426,6 +427,7 @@ window.addEventListener("DOMContentLoaded", () => {
       cookieSubtotal,
       strawberryTotal,
       estimatedTotal: cookieSubtotal + strawberryTotal + deliveryFee,
+      website: formData.get("website") || "",
     };
   }
 

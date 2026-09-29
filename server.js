@@ -33,61 +33,61 @@ const ALLOWED_PAYMENTS = ["zelle", "cashapp", "venmo", "cash"];
 const ALLOWED_FULFILLMENTS = ["pickup", "delivery"];
 
 const DELIVERY_FEES_BY_ZIP = {
-  "92121": 5,
-  "92126": 5,
-  "92131": 5,
+  92121: 5,
+  92126: 5,
+  92131: 5,
 
-  "92064": 6,
-  "92145": 6,
+  92064: 6,
+  92145: 6,
 
-  "92108": 7,
-  "92110": 7,
-  "92111": 7,
-  "92117": 7,
-  "92122": 7,
-  "92123": 7,
-  "92130": 7,
+  92108: 7,
+  92110: 7,
+  92111: 7,
+  92117: 7,
+  92122: 7,
+  92123: 7,
+  92130: 7,
 
-  "92037": 8,
-  "92106": 8,
-  "92107": 8,
-  "92109": 8,
-  "92119": 8,
-  "92120": 8,
-  "92124": 8,
-  "92140": 8,
+  92037: 8,
+  92106: 8,
+  92107: 8,
+  92109: 8,
+  92119: 8,
+  92120: 8,
+  92124: 8,
+  92140: 8,
 
-  "92101": 9,
-  "92102": 9,
-  "92103": 9,
-  "92104": 9,
-  "92105": 9,
-  "92113": 9,
-  "92114": 9,
-  "92115": 9,
-  "92116": 9,
+  92101: 9,
+  92102: 9,
+  92103: 9,
+  92104: 9,
+  92105: 9,
+  92113: 9,
+  92114: 9,
+  92115: 9,
+  92116: 9,
 
-  "91902": 10,
-  "91910": 10,
-  "91911": 10,
-  "91913": 10,
-  "91914": 10,
-  "91915": 10,
-  "91932": 10,
-  "91941": 10,
-  "91942": 10,
-  "91945": 10,
-  "91950": 10,
-  "91977": 10,
-  "91978": 10,
-  "92019": 10,
-  "92020": 10,
-  "92021": 10,
-  "92040": 10,
-  "92071": 10,
-  "92139": 10,
-  "92154": 10,
-  "92173": 10,
+  91902: 10,
+  91910: 10,
+  91911: 10,
+  91913: 10,
+  91914: 10,
+  91915: 10,
+  91932: 10,
+  91941: 10,
+  91942: 10,
+  91945: 10,
+  91950: 10,
+  91977: 10,
+  91978: 10,
+  92019: 10,
+  92020: 10,
+  92021: 10,
+  92040: 10,
+  92071: 10,
+  92139: 10,
+  92154: 10,
+  92173: 10,
 };
 
 const PAYMENT_LABELS = {
@@ -133,7 +133,7 @@ app.use(
   helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
-  })
+  }),
 );
 
 app.use(
@@ -145,7 +145,7 @@ app.use(
 
       return callback(new Error("Not allowed by CORS"));
     },
-  })
+  }),
 );
 
 app.use(express.json({ limit: "25kb" }));
@@ -155,7 +155,7 @@ app.use(
   express.static(PUBLIC_DIR, {
     dotfiles: "ignore",
     index: "index.html",
-  })
+  }),
 );
 
 const formLimiter = rateLimit({
@@ -226,6 +226,14 @@ app.get("/health", (_req, res) => {
 
 app.post("/contact", formLimiter, async (req, res) => {
   try {
+    if (isHoneypotFilled(req.body)) {
+      console.warn("Honeypot triggered on /contact");
+      return res.status(200).json({
+        success: true,
+        message: "Message sent successfully.",
+      });
+    }
+
     const contact = sanitizeContact(req.body);
     const missingFields = getMissingFields(contact, [
       "firstName",
@@ -239,7 +247,7 @@ app.post("/contact", formLimiter, async (req, res) => {
       return sendBadRequest(
         res,
         "Please fill out all required fields.",
-        missingFields
+        missingFields,
       );
     }
 
@@ -270,6 +278,15 @@ app.post("/contact", formLimiter, async (req, res) => {
 
 app.post("/orders", formLimiter, async (req, res) => {
   try {
+    if (isHoneypotFilled(req.body)) {
+      console.warn("Honeypot triggered on /orders");
+      return res.status(200).json({
+        success: true,
+        message: "Order received successfully.",
+        orderId: createOrderId(),
+      });
+    }
+
     const order = sanitizeOrder(req.body);
     const missingFields = getMissingFields(order, [
       "firstName",
@@ -287,7 +304,7 @@ app.post("/orders", formLimiter, async (req, res) => {
       return sendBadRequest(
         res,
         "Please fill out all required order fields.",
-        missingFields
+        missingFields,
       );
     }
 
@@ -334,7 +351,7 @@ app.post("/confirm-order", smsLimiter, requireAdminToken, async (req, res) => {
       return sendBadRequest(
         res,
         "First name, phone number, and order ID are required.",
-        missingFields
+        missingFields,
       );
     }
 
@@ -352,7 +369,7 @@ app.post("/confirm-order", smsLimiter, requireAdminToken, async (req, res) => {
     console.error("Confirm order SMS error:", error);
     return sendServerError(
       res,
-      "Something went wrong sending the confirmation SMS."
+      "Something went wrong sending the confirmation SMS.",
     );
   }
 });
@@ -598,7 +615,9 @@ function verifyOrderTotals(order) {
   const strawberryTotal = getTotalStrawberries(order.flavors);
   const cookieSubtotal = calculateCookieSubtotal(totalCookies);
   const deliveryFee =
-    order.fulfillment === "delivery" ? estimateDeliveryFee(order.deliveryZip) : 0;
+    order.fulfillment === "delivery"
+      ? estimateDeliveryFee(order.deliveryZip)
+      : 0;
 
   return {
     ...order,
@@ -714,9 +733,9 @@ async function sendCustomerOrderReceivedSms(order) {
   await sendSmsSafe({
     to: order.phone,
     body: `Hi ${order.firstName}, Emkari received your cookie order ${order.orderId}! Order: ${order.totalCookies} cookie(s). Total: ${formatCurrency(
-      order.estimatedTotal
+      order.estimatedTotal,
     )}. Scheduled for ${order.fulfillmentDate} at ${formatTimeLabel(
-      order.fulfillmentTime
+      order.fulfillmentTime,
     )}. We’ll text you to confirm payment and ${
       order.fulfillment === "delivery" ? "delivery details." : "pickup details."
     } Reply STOP to opt out.`,
@@ -737,7 +756,7 @@ async function sendConfirmOrderSms(confirmation) {
 Hi ${confirmation.firstName}, Emkari here! Your order ${confirmation.orderId} is confirmed.
 
 Scheduled for: ${confirmation.fulfillmentDate || "N/A"} at ${formatTimeLabel(
-      confirmation.fulfillmentTime
+      confirmation.fulfillmentTime,
     )}
 Total: ${formatCurrency(confirmation.total)}
 Payment method: ${formatPaymentMethod(confirmation.paymentMethod)}
@@ -793,11 +812,17 @@ function estimateDeliveryFee(zip = "") {
 }
 
 function getTotalCookies(flavors = []) {
-  return flavors.reduce((sum, item) => sum + clampNumber(item.quantity, 0, 99), 0);
+  return flavors.reduce(
+    (sum, item) => sum + clampNumber(item.quantity, 0, 99),
+    0,
+  );
 }
 
 function getTotalStrawberries(flavors = []) {
-  return flavors.reduce((sum, item) => sum + clampNumber(item.strawberry, 0, 99), 0);
+  return flavors.reduce(
+    (sum, item) => sum + clampNumber(item.strawberry, 0, 99),
+    0,
+  );
 }
 
 function isValidFulfillmentTime(time = "") {
@@ -978,6 +1003,14 @@ function getMissingFields(object, fields) {
   return fields.filter((field) => !object[field]);
 }
 
+// Used to check if website field (the honeypot) is filled so that bots fill it
+// and receive a fake success
+function isHoneypotFilled(body = {}) {
+  return typeof body.website === "string"
+    ? body.website.trim() !== ""
+    : body.website != null;
+}
+
 function sendBadRequest(res, message, missingFields = []) {
   return res.status(400).json({
     success: false,
@@ -988,7 +1021,7 @@ function sendBadRequest(res, message, missingFields = []) {
 
 function sendServerError(
   res,
-  message = "Something went wrong. Please try again."
+  message = "Something went wrong. Please try again.",
 ) {
   return res.status(500).json({
     success: false,
