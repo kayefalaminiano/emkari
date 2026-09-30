@@ -21,6 +21,7 @@ const HTML_DIR = path.join(PUBLIC_DIR, "html");
 const ORDER_EMAIL_TO = process.env.ORDER_EMAIL_TO || "hello@emkari.com";
 const OWNER_PHONE_NUMBER = process.env.OWNER_PHONE_NUMBER || "+16194950207";
 const TWILIO_FROM = process.env.TWILIO_PHONE_NUMBER;
+const MIN_FORM_FILL_MS = 3000;
 
 const COOKIE_NAMES = {
   dubai: "Dubai Cookie",
@@ -226,8 +227,7 @@ app.get("/health", (_req, res) => {
 
 app.post("/contact", formLimiter, async (req, res) => {
   try {
-    if (isHoneypotFilled(req.body)) {
-      console.warn("Honeypot triggered on /contact");
+    if (isLikelyABot(req.body, "/contact")) {
       return res.status(200).json({
         success: true,
         message: "Message sent successfully.",
@@ -278,8 +278,7 @@ app.post("/contact", formLimiter, async (req, res) => {
 
 app.post("/orders", formLimiter, async (req, res) => {
   try {
-    if (isHoneypotFilled(req.body)) {
-      console.warn("Honeypot triggered on /orders");
+    if (isLikelyABot(req.body, "/orders")) {
       return res.status(200).json({
         success: true,
         message: "Order received successfully.",
@@ -1009,6 +1008,24 @@ function isHoneypotFilled(body = {}) {
   return typeof body.website === "string"
     ? body.website.trim() !== ""
     : body.website != null;
+}
+
+// Prevents bots from trying to submit the form faster than a typical user
+function isSubmittedTooFast(body = {}) {
+  const elapsedMs = Number(body.elapsedMs);
+  return !Number.isFinite(elapsedMs) || elapsedMs < MIN_FORM_FILL_MS;
+}
+
+function isLikelyABot(body, route) {
+  if (isHoneypotFilled(body)) {
+    console.warn(`Honeypot triggered on ${route}`);
+    return true;
+  }
+  if (isSubmittedTooFast(body)) {
+    console.warn(`Form submitted too fast on ${route} (elapsedMs: ${body?.elapsedMs})`);
+    return true;
+  }
+  return false;
 }
 
 function sendBadRequest(res, message, missingFields = []) {

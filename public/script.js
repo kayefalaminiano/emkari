@@ -8,19 +8,63 @@ window.addEventListener("DOMContentLoaded", () => {
   };
 
   const DELIVERY_FEES_BY_ZIP = {
-    92121: 5, 92126: 5, 92131: 5,
-    92064: 6, 92145: 6,
-    92108: 7, 92110: 7, 92111: 7, 92117: 7, 92122: 7, 92123: 7, 92130: 7,
-    92037: 8, 92106: 8, 92107: 8, 92109: 8, 92119: 8, 92120: 8, 92124: 8, 92140: 8,
-    92101: 9, 92102: 9, 92103: 9, 92104: 9, 92105: 9, 92113: 9, 92114: 9, 92115: 9, 92116: 9,
-    91902: 10, 91910: 10, 91911: 10, 91913: 10, 91914: 10, 91915: 10, 91932: 10,
-    91941: 10, 91942: 10, 91945: 10, 91950: 10, 91977: 10, 91978: 10,
-    92019: 10, 92020: 10, 92021: 10, 92040: 10, 92071: 10,
-    92139: 10, 92154: 10, 92173: 10,
+    92121: 5,
+    92126: 5,
+    92131: 5,
+    92064: 6,
+    92145: 6,
+    92108: 7,
+    92110: 7,
+    92111: 7,
+    92117: 7,
+    92122: 7,
+    92123: 7,
+    92130: 7,
+    92037: 8,
+    92106: 8,
+    92107: 8,
+    92109: 8,
+    92119: 8,
+    92120: 8,
+    92124: 8,
+    92140: 8,
+    92101: 9,
+    92102: 9,
+    92103: 9,
+    92104: 9,
+    92105: 9,
+    92113: 9,
+    92114: 9,
+    92115: 9,
+    92116: 9,
+    91902: 10,
+    91910: 10,
+    91911: 10,
+    91913: 10,
+    91914: 10,
+    91915: 10,
+    91932: 10,
+    91941: 10,
+    91942: 10,
+    91945: 10,
+    91950: 10,
+    91977: 10,
+    91978: 10,
+    92019: 10,
+    92020: 10,
+    92021: 10,
+    92040: 10,
+    92071: 10,
+    92139: 10,
+    92154: 10,
+    92173: 10,
   };
 
   const PAYMENT_DETAILS = {
-    zelle: ["<strong>Zelle:</strong> Kaye Falaminiano", "<strong>Email:</strong> kayefalaminiano@gmail.com"],
+    zelle: [
+      "<strong>Zelle:</strong> Kaye Falaminiano",
+      "<strong>Email:</strong> kayefalaminiano@gmail.com",
+    ],
     cashapp: ["<strong>Cash App:</strong> @kayefalaminiano"],
     venmo: ["<strong>Venmo:</strong> @kayefalaminiano"],
     cash: ["<strong>Cash:</strong> Payment can be made at pickup or delivery."],
@@ -43,7 +87,7 @@ window.addEventListener("DOMContentLoaded", () => {
         section.classList.toggle("is-visible", entry.isIntersecting);
         section.classList.toggle("is-draining", !entry.isIntersecting);
       },
-      { threshold: 0.25, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.25, rootMargin: "0px 0px -10% 0px" },
     ).observe(section);
   }
 
@@ -59,7 +103,8 @@ window.addEventListener("DOMContentLoaded", () => {
       }
       header.classList.toggle(
         "scrolled",
-        logo.getBoundingClientRect().top <= header.getBoundingClientRect().bottom + 8
+        logo.getBoundingClientRect().top <=
+          header.getBoundingClientRect().bottom + 8,
       );
     };
 
@@ -86,7 +131,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     new IntersectionObserver(
       ([entry]) => section.classList.toggle("is-visible", entry.isIntersecting),
-      { threshold: 0.18, rootMargin: "0px 0px -18% 0px" }
+      { threshold: 0.18, rootMargin: "0px 0px -18% 0px" },
     ).observe(section);
   }
 
@@ -96,7 +141,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (!track || !carousel) return;
 
     const originalCards = Array.from(track.children).filter(
-      (card) => !card.hasAttribute("data-review-clone")
+      (card) => !card.hasAttribute("data-review-clone"),
     );
     if (!originalCards.length) return;
 
@@ -104,7 +149,9 @@ window.addEventListener("DOMContentLoaded", () => {
     let lastWidth = window.innerWidth;
 
     const removeClones = () => {
-      track.querySelectorAll("[data-review-clone='true']").forEach((clone) => clone.remove());
+      track
+        .querySelectorAll("[data-review-clone='true']")
+        .forEach((clone) => clone.remove());
     };
 
     const getOriginalWidth = () => {
@@ -132,7 +179,10 @@ window.addEventListener("DOMContentLoaded", () => {
       track.style.setProperty("--review-distance", `${originalWidth}px`);
 
       let safetyCount = 0;
-      while (track.scrollWidth < carousel.offsetWidth + originalWidth * 3 && safetyCount < 30) {
+      while (
+        track.scrollWidth < carousel.offsetWidth + originalWidth * 3 &&
+        safetyCount < 30
+      ) {
         originalCards.forEach((card) => {
           const clone = card.cloneNode(true);
           clone.setAttribute("aria-hidden", "true");
@@ -165,6 +215,8 @@ window.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("#contactForm");
     if (!form) return;
 
+    const loadedAt = Date.now();
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const submitButton = form.querySelector('button[type="submit"]');
@@ -180,13 +232,15 @@ window.addEventListener("DOMContentLoaded", () => {
         smsConsent: data.get("smsConsent") === "yes",
         message: data.get("message"),
         website: data.get("website") || "",
+        elapsedMs: Date.now() - loadedAt,
       };
 
       setSubmitState(submitButton, true, originalText, "Sending...");
 
       try {
         const result = await postJson("/contact", payload);
-        if (!result.success) throw new Error(result.message || "Contact form submission failed.");
+        if (!result.success)
+          throw new Error(result.message || "Contact form submission failed.");
         form.reset();
         alert("Your message has been sent. Thank you for reaching out!");
       } catch (error) {
@@ -201,6 +255,8 @@ window.addEventListener("DOMContentLoaded", () => {
   function setupOrderForm() {
     const form = document.querySelector("#orderForm");
     if (!form) return;
+
+    const loadedAt = Date.now();
 
     const elements = {
       qty: form.querySelectorAll('input[name$="Qty"]'),
@@ -230,10 +286,12 @@ window.addEventListener("DOMContentLoaded", () => {
       elements.deliveryZip,
       elements.fulfillmentDate,
       elements.fulfillmentTime,
-    ].filter(Boolean).forEach((input) => {
-      input.addEventListener("input", syncOrderState);
-      input.addEventListener("change", syncOrderState);
-    });
+    ]
+      .filter(Boolean)
+      .forEach((input) => {
+        input.addEventListener("input", syncOrderState);
+        input.addEventListener("change", syncOrderState);
+      });
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -246,18 +304,31 @@ window.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      setSubmitState(elements.submitButton, true, "Submit order", "Submitting...");
+      setSubmitState(
+        elements.submitButton,
+        true,
+        "Submit order",
+        "Submitting...",
+      );
 
       try {
-        const result = await postJson("/orders", order);
-        if (!result.success) throw new Error(result.message || "Order submission failed.");
+        const result = await postJson("/orders", {
+          ...order,
+          elapsedMs: Date.now() - loadedAt,
+        });
+        if (!result.success)
+          throw new Error(result.message || "Order submission failed.");
         form.reset();
         setupFulfillmentSchedule(elements);
         syncOrderState();
-        alert("Your cookie order has been received! We’ll text you with updates.");
+        alert(
+          "Your cookie order has been received! We’ll text you with updates.",
+        );
       } catch (error) {
         console.error("Order form error:", error);
-        alert("Something went wrong submitting your order. Please try again or text us directly.");
+        alert(
+          "Something went wrong submitting your order. Please try again or text us directly.",
+        );
       } finally {
         setSubmitState(elements.submitButton, false, "Submit order");
       }
@@ -278,7 +349,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function preselectFlavor(form) {
-    const selectedFlavor = new URLSearchParams(window.location.search).get("flavor");
+    const selectedFlavor = new URLSearchParams(window.location.search).get(
+      "flavor",
+    );
     if (!COOKIE_FLAVORS.includes(selectedFlavor)) return;
     const input = form.querySelector(`input[name="${selectedFlavor}Qty"]`);
     if (input) input.value = "1";
@@ -315,7 +388,9 @@ window.addEventListener("DOMContentLoaded", () => {
   function syncStrawberryLimits(form) {
     COOKIE_FLAVORS.forEach((flavor) => {
       const qtyInput = form.querySelector(`input[name="${flavor}Qty"]`);
-      const strawberryInput = form.querySelector(`input[name="${flavor}Strawberry"]`);
+      const strawberryInput = form.querySelector(
+        `input[name="${flavor}Strawberry"]`,
+      );
       if (!qtyInput || !strawberryInput) return;
 
       const cookieQty = getNumber(qtyInput.value);
@@ -323,11 +398,15 @@ window.addEventListener("DOMContentLoaded", () => {
       strawberryInput.max = String(cookieQty);
 
       if (cookieQty === 0) strawberryInput.value = "0";
-      else if (strawberryQty > cookieQty) strawberryInput.value = String(cookieQty);
+      else if (strawberryQty > cookieQty)
+        strawberryInput.value = String(cookieQty);
     });
   }
 
-  function updateDeliveryEstimate({ deliveryZip, deliveryEstimate }, isDelivery) {
+  function updateDeliveryEstimate(
+    { deliveryZip, deliveryEstimate },
+    isDelivery,
+  ) {
     if (!deliveryEstimate) return;
     if (!isDelivery) {
       deliveryEstimate.textContent = "";
@@ -336,7 +415,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const zip = normalizeZip(deliveryZip?.value);
     if (!zip) {
-      deliveryEstimate.textContent = "Enter your ZIP code to estimate delivery.";
+      deliveryEstimate.textContent =
+        "Enter your ZIP code to estimate delivery.";
       return;
     }
 
@@ -346,12 +426,17 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     const fee = estimateDeliveryFee(zip);
-    deliveryEstimate.textContent = fee === null ? "Delivery fee will be confirmed by text." : `Estimated delivery fee: $${fee}`;
+    deliveryEstimate.textContent =
+      fee === null
+        ? "Delivery fee will be confirmed by text."
+        : `Estimated delivery fee: $${fee}`;
   }
 
   function updatePaymentDetails({ paymentDetails }, form) {
     if (!paymentDetails) return;
-    const paymentMethod = form.querySelector('input[name="paymentMethod"]:checked')?.value;
+    const paymentMethod = form.querySelector(
+      'input[name="paymentMethod"]:checked',
+    )?.value;
     const details = PAYMENT_DETAILS[paymentMethod];
 
     if (!details) {
@@ -365,9 +450,12 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function validateOrder(order) {
-    if (order.totalCookies < 1) return "Please choose at least one cookie before submitting your order.";
-    if (!order.fulfillmentDate || !order.fulfillmentTime) return "Please choose a pickup or delivery date and time.";
-    if (order.fulfillmentDate < getTomorrowDateString()) return "Please choose a date that is at least one day from today.";
+    if (order.totalCookies < 1)
+      return "Please choose at least one cookie before submitting your order.";
+    if (!order.fulfillmentDate || !order.fulfillmentTime)
+      return "Please choose a pickup or delivery date and time.";
+    if (order.fulfillmentDate < getTomorrowDateString())
+      return "Please choose a date that is at least one day from today.";
 
     if (order.fulfillment === "delivery") {
       if (order.cookieSubtotal < 24) {
@@ -397,16 +485,23 @@ window.addEventListener("DOMContentLoaded", () => {
   function buildOrderPayload(formData) {
     const flavors = COOKIE_FLAVORS.map((flavor) => {
       const quantity = getNumber(formData.get(`${flavor}Qty`));
-      const strawberry = Math.min(quantity, getNumber(formData.get(`${flavor}Strawberry`)));
+      const strawberry = Math.min(
+        quantity,
+        getNumber(formData.get(`${flavor}Strawberry`)),
+      );
       return { flavor, name: COOKIE_NAMES[flavor], quantity, strawberry };
     });
 
     const fulfillment = formData.get("fulfillment") || "pickup";
     const deliveryZip = normalizeZip(formData.get("deliveryZip"));
-    const deliveryFee = fulfillment === "delivery" ? estimateDeliveryFee(deliveryZip) || 0 : 0;
+    const deliveryFee =
+      fulfillment === "delivery" ? estimateDeliveryFee(deliveryZip) || 0 : 0;
     const totalCookies = flavors.reduce((sum, item) => sum + item.quantity, 0);
     const cookieSubtotal = calculateCookieSubtotal(totalCookies);
-    const strawberryTotal = flavors.reduce((sum, item) => sum + item.strawberry, 0);
+    const strawberryTotal = flavors.reduce(
+      (sum, item) => sum + item.strawberry,
+      0,
+    );
 
     return {
       firstName: formData.get("firstName"),
@@ -441,7 +536,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function getFulfillment(form) {
-    return form.querySelector('input[name="fulfillment"]:checked')?.value || "pickup";
+    return (
+      form.querySelector('input[name="fulfillment"]:checked')?.value || "pickup"
+    );
   }
 
   function estimateDeliveryFee(zip) {
@@ -457,7 +554,11 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function formatDateForInput(date) {
-    return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+    return [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, "0"),
+      String(date.getDate()).padStart(2, "0"),
+    ].join("-");
   }
 
   function formatTimeLabel(value) {
@@ -468,7 +569,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function normalizeZip(value) {
-    return String(value || "").replace(/\D/g, "").slice(0, 5);
+    return String(value || "")
+      .replace(/\D/g, "")
+      .slice(0, 5);
   }
 
   function isValidZip(zip) {
@@ -505,11 +608,17 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     const result = await response.json();
-    if (!response.ok) throw new Error(result.message || `Request failed: ${path}`);
+    if (!response.ok)
+      throw new Error(result.message || `Request failed: ${path}`);
     return result;
   }
 
-  function setSubmitState(button, isSending, originalText = "Send message", sendingText = "Sending...") {
+  function setSubmitState(
+    button,
+    isSending,
+    originalText = "Send message",
+    sendingText = "Sending...",
+  ) {
     if (!button) return;
     button.disabled = isSending;
     button.textContent = isSending ? sendingText : originalText;
