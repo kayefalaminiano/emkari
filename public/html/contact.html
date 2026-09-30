@@ -69,8 +69,15 @@
               /></label>
             </div>
             <label
-              ><span>Email</span
-              ><input type="email" name="email" autocomplete="email" required
+              ><span
+                >Email
+                <small id="emailError" class="field-error" role="alert" hidden></small></span
+              ><input
+                type="email"
+                name="email"
+                autocomplete="email"
+                aria-describedby="emailError"
+                required
             /></label>
             <label
               ><span>Phone <em>optional</em></span

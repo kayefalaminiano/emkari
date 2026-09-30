@@ -7,6 +7,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import path from "path";
 import { fileURLToPath } from "url";
+import { Resolver } from "dns/promises";
 
 dotenv.config();
 
@@ -22,6 +23,9 @@ const ORDER_EMAIL_TO = process.env.ORDER_EMAIL_TO || "hello@emkari.com";
 const OWNER_PHONE_NUMBER = process.env.OWNER_PHONE_NUMBER || "+16194950207";
 const TWILIO_FROM = process.env.TWILIO_PHONE_NUMBER;
 const MIN_FORM_FILL_MS = 3000;
+
+// Short timeout so a slow DNS server never holds up a real submission
+const dnsResolver = new Resolver({ timeout: 2000, tries: 1 });
 
 const COOKIE_NAMES = {
   dubai: "Dubai Cookie",
@@ -254,7 +258,17 @@ app.post("/contact", formLimiter, async (req, res) => {
     const validationMessage = validateContact(contact);
 
     if (validationMessage) {
-      return sendBadRequest(res, validationMessage);
+      const field = isValidEmail(contact.email) ? undefined : "email";
+      return sendBadRequest(res, validationMessage, [], field);
+    }
+
+    if (!(await hasMailDomain(contact.email))) {
+      return sendBadRequest(
+        res,
+        "We couldn't find that email domain. Please double-check it.",
+        [],
+        "email",
+      );
     }
 
     await sendContactEmail(contact);
@@ -915,6 +929,35 @@ function isValidEmail(email = "") {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 120;
 }
 
+// Checks DNS for mail servers on the email's domain to catch typos like gmial.com.
+// Only returns false when DNS clearly says the domain can't receive mail;
+// timeouts and other DNS errors let the submission through.
+async function hasMailDomain(email = "") {
+  const domain = email.split("@").pop().toLowerCase();
+
+  try {
+    const records = await dnsResolver.resolveMx(domain);
+    // A "null MX" (exchange of "" or ".") means the domain accepts no mail
+    return records.some(
+      (record) => record.exchange !== "" && record.exchange !== ".",
+    );
+  } catch (error) {
+    // ENOTFOUND: the domain doesn't exist (NXDOMAIN)
+    if (error.code === "ENOTFOUND") return false;
+    // ENODATA: the domain exists but has no MX records, so check for an A record.
+    // Anything else (timeout, server failure) is a DNS problem, not a bad email.
+    if (error.code !== "ENODATA") return true;
+  }
+
+  // No MX records: mail falls back to the domain's A record if it has one
+  try {
+    await dnsResolver.resolve4(domain);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function isValidDateString(value = "") {
   return /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
@@ -1028,11 +1071,13 @@ function isLikelyABot(body, route) {
   return false;
 }
 
-function sendBadRequest(res, message, missingFields = []) {
+// field names the input the error belongs to, so the page can show it inline
+function sendBadRequest(res, message, missingFields = [], field) {
   return res.status(400).json({
     success: false,
     message,
     missingFields,
+    ...(field && { field }),
   });
 }
 

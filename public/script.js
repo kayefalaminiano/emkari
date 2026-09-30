@@ -1,5 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
-  const API_BASE_URL = "https://emkari.onrender.com";
+  // Locally, send requests to the Node server that served the page instead of production
+  const API_BASE_URL = ["localhost", "127.0.0.1"].includes(location.hostname)
+    ? ""
+    : "https://emkari.onrender.com";
   const COOKIE_FLAVORS = ["dubai", "ferrero", "biscoff"];
   const COOKIE_NAMES = {
     dubai: "Dubai Cookie",
@@ -216,9 +219,21 @@ window.addEventListener("DOMContentLoaded", () => {
     if (!form) return;
 
     const loadedAt = Date.now();
+    const emailInput = form.querySelector('input[name="email"]');
+    const emailError = form.querySelector("#emailError");
+
+    const setEmailError = (message) => {
+      if (!emailInput || !emailError) return;
+      emailError.textContent = message;
+      emailError.hidden = !message;
+      emailInput.toggleAttribute("aria-invalid", Boolean(message));
+    };
+
+    emailInput?.addEventListener("input", () => setEmailError(""));
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      setEmailError("");
       const submitButton = form.querySelector('button[type="submit"]');
       const originalText = submitButton?.textContent || "Send message";
       const data = new FormData(form);
@@ -245,7 +260,12 @@ window.addEventListener("DOMContentLoaded", () => {
         alert("Your message has been sent. Thank you for reaching out!");
       } catch (error) {
         console.error("Contact form error:", error);
-        alert("Something went wrong. Please try again.");
+        if (error.field === "email") {
+          setEmailError(error.serverMessage);
+          emailInput?.focus();
+        } else {
+          alert(error.serverMessage || "Something went wrong. Please try again.");
+        }
       } finally {
         setSubmitState(submitButton, false, originalText);
       }
@@ -608,8 +628,12 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     const result = await response.json();
-    if (!response.ok)
-      throw new Error(result.message || `Request failed: ${path}`);
+    if (!response.ok) {
+      const error = new Error(result.message || `Request failed: ${path}`);
+      error.serverMessage = result.message;
+      error.field = result.field;
+      throw error;
+    }
     return result;
   }
 

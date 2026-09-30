@@ -4,6 +4,7 @@
   --black: #302a27;
   --matcha: #70892e;
   --green: var(--matcha);
+  --error: #a8372a;
   --title-font: "BBH Bartle", serif;
   --body-font: "Geist", sans-serif;
   --header-height: 76px;
