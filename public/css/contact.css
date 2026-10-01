@@ -114,6 +114,23 @@
   opacity: 0.75;
 }
 
+.contact-form .field-error {
+  margin-left: 8px;
+  color: var(--error);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.contact-form input[aria-invalid] {
+  border-color: var(--error);
+}
+
+.contact-form input[aria-invalid]:focus {
+  box-shadow: 0 0 0 3px rgba(168, 55, 42, 0.15);
+}
+
 .contact-form .checkbox-label {
   width: 100%;
   display: grid !important;

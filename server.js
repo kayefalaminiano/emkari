@@ -7,6 +7,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import path from "path";
 import { fileURLToPath } from "url";
+import { Resolver } from "dns/promises";
 
 dotenv.config();
 
@@ -21,6 +22,10 @@ const HTML_DIR = path.join(PUBLIC_DIR, "html");
 const ORDER_EMAIL_TO = process.env.ORDER_EMAIL_TO || "hello@emkari.com";
 const OWNER_PHONE_NUMBER = process.env.OWNER_PHONE_NUMBER || "+16194950207";
 const TWILIO_FROM = process.env.TWILIO_PHONE_NUMBER;
+const MIN_FORM_FILL_MS = 3000;
+
+// Short timeout so a slow DNS server never holds up a real submission
+const dnsResolver = new Resolver({ timeout: 2000, tries: 1 });
 
 const COOKIE_NAMES = {
   dubai: "Dubai Cookie",
@@ -33,61 +38,61 @@ const ALLOWED_PAYMENTS = ["zelle", "cashapp", "venmo", "cash"];
 const ALLOWED_FULFILLMENTS = ["pickup", "delivery"];
 
 const DELIVERY_FEES_BY_ZIP = {
-  "92121": 5,
-  "92126": 5,
-  "92131": 5,
+  92121: 5,
+  92126: 5,
+  92131: 5,
 
-  "92064": 6,
-  "92145": 6,
+  92064: 6,
+  92145: 6,
 
-  "92108": 7,
-  "92110": 7,
-  "92111": 7,
-  "92117": 7,
-  "92122": 7,
-  "92123": 7,
-  "92130": 7,
+  92108: 7,
+  92110: 7,
+  92111: 7,
+  92117: 7,
+  92122: 7,
+  92123: 7,
+  92130: 7,
 
-  "92037": 8,
-  "92106": 8,
-  "92107": 8,
-  "92109": 8,
-  "92119": 8,
-  "92120": 8,
-  "92124": 8,
-  "92140": 8,
+  92037: 8,
+  92106: 8,
+  92107: 8,
+  92109: 8,
+  92119: 8,
+  92120: 8,
+  92124: 8,
+  92140: 8,
 
-  "92101": 9,
-  "92102": 9,
-  "92103": 9,
-  "92104": 9,
-  "92105": 9,
-  "92113": 9,
-  "92114": 9,
-  "92115": 9,
-  "92116": 9,
+  92101: 9,
+  92102: 9,
+  92103: 9,
+  92104: 9,
+  92105: 9,
+  92113: 9,
+  92114: 9,
+  92115: 9,
+  92116: 9,
 
-  "91902": 10,
-  "91910": 10,
-  "91911": 10,
-  "91913": 10,
-  "91914": 10,
-  "91915": 10,
-  "91932": 10,
-  "91941": 10,
-  "91942": 10,
-  "91945": 10,
-  "91950": 10,
-  "91977": 10,
-  "91978": 10,
-  "92019": 10,
-  "92020": 10,
-  "92021": 10,
-  "92040": 10,
-  "92071": 10,
-  "92139": 10,
-  "92154": 10,
-  "92173": 10,
+  91902: 10,
+  91910: 10,
+  91911: 10,
+  91913: 10,
+  91914: 10,
+  91915: 10,
+  91932: 10,
+  91941: 10,
+  91942: 10,
+  91945: 10,
+  91950: 10,
+  91977: 10,
+  91978: 10,
+  92019: 10,
+  92020: 10,
+  92021: 10,
+  92040: 10,
+  92071: 10,
+  92139: 10,
+  92154: 10,
+  92173: 10,
 };
 
 const PAYMENT_LABELS = {
@@ -133,7 +138,7 @@ app.use(
   helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
-  })
+  }),
 );
 
 app.use(
@@ -145,7 +150,7 @@ app.use(
 
       return callback(new Error("Not allowed by CORS"));
     },
-  })
+  }),
 );
 
 app.use(express.json({ limit: "25kb" }));
@@ -155,7 +160,7 @@ app.use(
   express.static(PUBLIC_DIR, {
     dotfiles: "ignore",
     index: "index.html",
-  })
+  }),
 );
 
 const formLimiter = rateLimit({
@@ -226,6 +231,13 @@ app.get("/health", (_req, res) => {
 
 app.post("/contact", formLimiter, async (req, res) => {
   try {
+    if (isLikelyABot(req.body, "/contact")) {
+      return res.status(200).json({
+        success: true,
+        message: "Message sent successfully.",
+      });
+    }
+
     const contact = sanitizeContact(req.body);
     const missingFields = getMissingFields(contact, [
       "firstName",
@@ -239,14 +251,24 @@ app.post("/contact", formLimiter, async (req, res) => {
       return sendBadRequest(
         res,
         "Please fill out all required fields.",
-        missingFields
+        missingFields,
       );
     }
 
     const validationMessage = validateContact(contact);
 
     if (validationMessage) {
-      return sendBadRequest(res, validationMessage);
+      const field = isValidEmail(contact.email) ? undefined : "email";
+      return sendBadRequest(res, validationMessage, [], field);
+    }
+
+    if (!(await hasMailDomain(contact.email))) {
+      return sendBadRequest(
+        res,
+        "We couldn't find that email domain. Please double-check it.",
+        [],
+        "email",
+      );
     }
 
     await sendContactEmail(contact);
@@ -270,6 +292,14 @@ app.post("/contact", formLimiter, async (req, res) => {
 
 app.post("/orders", formLimiter, async (req, res) => {
   try {
+    if (isLikelyABot(req.body, "/orders")) {
+      return res.status(200).json({
+        success: true,
+        message: "Order received successfully.",
+        orderId: createOrderId(),
+      });
+    }
+
     const order = sanitizeOrder(req.body);
     const missingFields = getMissingFields(order, [
       "firstName",
@@ -287,7 +317,7 @@ app.post("/orders", formLimiter, async (req, res) => {
       return sendBadRequest(
         res,
         "Please fill out all required order fields.",
-        missingFields
+        missingFields,
       );
     }
 
@@ -334,7 +364,7 @@ app.post("/confirm-order", smsLimiter, requireAdminToken, async (req, res) => {
       return sendBadRequest(
         res,
         "First name, phone number, and order ID are required.",
-        missingFields
+        missingFields,
       );
     }
 
@@ -352,7 +382,7 @@ app.post("/confirm-order", smsLimiter, requireAdminToken, async (req, res) => {
     console.error("Confirm order SMS error:", error);
     return sendServerError(
       res,
-      "Something went wrong sending the confirmation SMS."
+      "Something went wrong sending the confirmation SMS.",
     );
   }
 });
@@ -598,7 +628,9 @@ function verifyOrderTotals(order) {
   const strawberryTotal = getTotalStrawberries(order.flavors);
   const cookieSubtotal = calculateCookieSubtotal(totalCookies);
   const deliveryFee =
-    order.fulfillment === "delivery" ? estimateDeliveryFee(order.deliveryZip) : 0;
+    order.fulfillment === "delivery"
+      ? estimateDeliveryFee(order.deliveryZip)
+      : 0;
 
   return {
     ...order,
@@ -714,9 +746,9 @@ async function sendCustomerOrderReceivedSms(order) {
   await sendSmsSafe({
     to: order.phone,
     body: `Hi ${order.firstName}, Emkari received your cookie order ${order.orderId}! Order: ${order.totalCookies} cookie(s). Total: ${formatCurrency(
-      order.estimatedTotal
+      order.estimatedTotal,
     )}. Scheduled for ${order.fulfillmentDate} at ${formatTimeLabel(
-      order.fulfillmentTime
+      order.fulfillmentTime,
     )}. We’ll text you to confirm payment and ${
       order.fulfillment === "delivery" ? "delivery details." : "pickup details."
     } Reply STOP to opt out.`,
@@ -737,7 +769,7 @@ async function sendConfirmOrderSms(confirmation) {
 Hi ${confirmation.firstName}, Emkari here! Your order ${confirmation.orderId} is confirmed.
 
 Scheduled for: ${confirmation.fulfillmentDate || "N/A"} at ${formatTimeLabel(
-      confirmation.fulfillmentTime
+      confirmation.fulfillmentTime,
     )}
 Total: ${formatCurrency(confirmation.total)}
 Payment method: ${formatPaymentMethod(confirmation.paymentMethod)}
@@ -793,11 +825,17 @@ function estimateDeliveryFee(zip = "") {
 }
 
 function getTotalCookies(flavors = []) {
-  return flavors.reduce((sum, item) => sum + clampNumber(item.quantity, 0, 99), 0);
+  return flavors.reduce(
+    (sum, item) => sum + clampNumber(item.quantity, 0, 99),
+    0,
+  );
 }
 
 function getTotalStrawberries(flavors = []) {
-  return flavors.reduce((sum, item) => sum + clampNumber(item.strawberry, 0, 99), 0);
+  return flavors.reduce(
+    (sum, item) => sum + clampNumber(item.strawberry, 0, 99),
+    0,
+  );
 }
 
 function isValidFulfillmentTime(time = "") {
@@ -891,6 +929,35 @@ function isValidEmail(email = "") {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 120;
 }
 
+// Checks DNS for mail servers on the email's domain to catch typos like gmial.com.
+// Only returns false when DNS clearly says the domain can't receive mail;
+// timeouts and other DNS errors let the submission through.
+async function hasMailDomain(email = "") {
+  const domain = email.split("@").pop().toLowerCase();
+
+  try {
+    const records = await dnsResolver.resolveMx(domain);
+    // A "null MX" (exchange of "" or ".") means the domain accepts no mail
+    return records.some(
+      (record) => record.exchange !== "" && record.exchange !== ".",
+    );
+  } catch (error) {
+    // ENOTFOUND: the domain doesn't exist (NXDOMAIN)
+    if (error.code === "ENOTFOUND") return false;
+    // ENODATA: the domain exists but has no MX records, so check for an A record.
+    // Anything else (timeout, server failure) is a DNS problem, not a bad email.
+    if (error.code !== "ENODATA") return true;
+  }
+
+  // No MX records: mail falls back to the domain's A record if it has one
+  try {
+    await dnsResolver.resolve4(domain);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function isValidDateString(value = "") {
   return /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
@@ -978,17 +1045,45 @@ function getMissingFields(object, fields) {
   return fields.filter((field) => !object[field]);
 }
 
-function sendBadRequest(res, message, missingFields = []) {
+// Used to check if website field (the honeypot) is filled so that bots fill it
+// and receive a fake success
+function isHoneypotFilled(body = {}) {
+  return typeof body.website === "string"
+    ? body.website.trim() !== ""
+    : body.website != null;
+}
+
+// Prevents bots from trying to submit the form faster than a typical user
+function isSubmittedTooFast(body = {}) {
+  const elapsedMs = Number(body.elapsedMs);
+  return !Number.isFinite(elapsedMs) || elapsedMs < MIN_FORM_FILL_MS;
+}
+
+function isLikelyABot(body, route) {
+  if (isHoneypotFilled(body)) {
+    console.warn(`Honeypot triggered on ${route}`);
+    return true;
+  }
+  if (isSubmittedTooFast(body)) {
+    console.warn(`Form submitted too fast on ${route} (elapsedMs: ${body?.elapsedMs})`);
+    return true;
+  }
+  return false;
+}
+
+// field names the input the error belongs to, so the page can show it inline
+function sendBadRequest(res, message, missingFields = [], field) {
   return res.status(400).json({
     success: false,
     message,
     missingFields,
+    ...(field && { field }),
   });
 }
 
 function sendServerError(
   res,
-  message = "Something went wrong. Please try again."
+  message = "Something went wrong. Please try again.",
 ) {
   return res.status(500).json({
     success: false,

@@ -12,7 +12,9 @@
   transition: background-color 0.25s ease;
 }
 
-.site-header.scrolled { background: var(--cream); }
+.site-header.scrolled {
+  background: var(--cream);
+}
 
 .header-inner {
   width: 100%;
@@ -40,7 +42,9 @@
   transition: background-color 0.25s ease;
 }
 
-.site-header.scrolled .header-logo { background-color: var(--coffee); }
+.site-header.scrolled .header-logo {
+  background-color: var(--coffee);
+}
 
 .header-nav {
   margin-left: auto;
@@ -58,10 +62,14 @@
   letter-spacing: 0.02em;
   text-decoration: none;
   white-space: nowrap;
-  transition: color 0.25s ease, opacity 0.2s ease;
+  transition:
+    color 0.25s ease,
+    opacity 0.2s ease;
 }
 
-.site-header.scrolled .header-nav a { color: var(--coffee); }
+.site-header.scrolled .header-nav a {
+  color: var(--coffee);
+}
 
 .header-nav a::after {
   content: "";
@@ -72,7 +80,9 @@
   height: 1px;
   background: currentColor;
   opacity: 0;
-  transition: width 0.22s ease, opacity 0.22s ease;
+  transition:
+    width 0.22s ease,
+    opacity 0.22s ease;
 }
 
 .header-nav a:hover::after,
@@ -96,7 +106,12 @@
   letter-spacing: clamp(0.08em, 0.7vw, 0.12em);
   text-decoration: none;
   text-transform: uppercase;
-  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .primary-button:hover,
@@ -137,6 +152,16 @@
   margin-top: 2px;
   flex: 0 0 auto;
   accent-color: var(--coffee);
+}
+
+/* Honeypot field is not visible or accessible to real people but bots will fill it */
+.hp-field {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 /* Footer */
@@ -253,44 +278,80 @@
   }
 
   .footer-brand .footer-socials {
-      position: relative;
-      left: -6px;
+    position: relative;
+    left: -6px;
   }
 }
 
 @media (max-width: 700px) {
-  :root { --header-height: 62px; --content-gutter: 16px; }
-  .site-header { padding: 10px 14px; }
-  .header-logo { width: 98px; }
-  .header-nav { gap: 12px; flex-wrap: nowrap; }
-  .header-nav a { font-size: 0.88rem; }
-  .form-row { grid-template-columns: 1fr; }
+  :root {
+    --header-height: 62px;
+    --content-gutter: 16px;
+  }
+  .site-header {
+    padding: 10px 14px;
+  }
+  .header-logo {
+    width: 98px;
+  }
+  .header-nav {
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  .header-nav a {
+    font-size: 0.88rem;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
   .footer-brand .footer-socials {
-      position: relative;
-      left: -6px;
+    position: relative;
+    left: -6px;
   }
 }
 
 @media (max-width: 430px) {
-  :root { --header-height: 56px; --content-gutter: 12px; }
-  .site-header { padding: 8px 12px; }
-  .header-logo { width: 84px; }
-  .header-nav { gap: 10px; }
-  .header-nav a { font-size: 0.8rem; }
+  :root {
+    --header-height: 56px;
+    --content-gutter: 12px;
+  }
+  .site-header {
+    padding: 8px 12px;
+  }
+  .header-logo {
+    width: 84px;
+  }
+  .header-nav {
+    gap: 10px;
+  }
+  .header-nav a {
+    font-size: 0.8rem;
+  }
   .footer-brand .footer-socials {
-      position: relative;
-      left: -6px;
+    position: relative;
+    left: -6px;
   }
 }
 
 @media (max-width: 380px) {
-  :root { --header-height: 50px; --content-gutter: 10px; }
-  .site-header { padding: 6px 10px; }
-  .header-logo { width: 76px; }
-  .header-nav { gap: 8px; }
-  .header-nav a { font-size: 0.74rem; }
+  :root {
+    --header-height: 50px;
+    --content-gutter: 10px;
+  }
+  .site-header {
+    padding: 6px 10px;
+  }
+  .header-logo {
+    width: 76px;
+  }
+  .header-nav {
+    gap: 8px;
+  }
+  .header-nav a {
+    font-size: 0.74rem;
+  }
   .footer-brand .footer-socials {
-      position: relative;
-      left: -6px;
+    position: relative;
+    left: -6px;
   }
 }
