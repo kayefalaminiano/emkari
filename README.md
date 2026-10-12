@@ -30,13 +30,6 @@
 
 ---
 
-OTHER PAGES/DOCS
-
-[design moodboard](https://www.notion.so/design-moodboard-3419221450e880dfb641f044dbeef5dc?pvs=21)
-
-[website layout](https://www.notion.so/website-layout-3459221450e8800981befbb6d805bec8?pvs=21)
-
----
 
 ## Brand Vision
 
@@ -55,9 +48,7 @@ OTHER PAGES/DOCS
 - Cozy
 - Modern
 - Cultural
-- Elevated
 - Intentional
-- Clean
 
 **Core Website Goals:**
 
@@ -70,7 +61,7 @@ OTHER PAGES/DOCS
 **Current Brand Message**
 
 > “Our culture, your cup”
-> 
+> "Re-imagined childhood flavors into modern day drinks"
 
 ---
 
@@ -121,7 +112,7 @@ Purpose: tell the story behind the brand and the people behind it.
 - Highlight each part of Emkari:
     - em = Emma
     - ka = Kaye
-    - ari = Arielle
+    - ri - Re-Imagined
 - Possible interaction ideas:
     - hover over each name part to highlight in a different color
     - click each part to open a small pop-up or new section
@@ -129,13 +120,13 @@ Purpose: tell the story behind the brand and the people behind it.
 
 **Suggestion**
 
-Keep this page story-driven and personal, but still clean and modern.
+keep this page story-driven and personal
 
 ---
 
 ### 3. Menu / Drinks
 
-Purpose: showcase products in a visually interesting way.
+Purpose: showcase our products in a visually interesting way.
 
 **Notes**
 
@@ -143,15 +134,12 @@ Purpose: showcase products in a visually interesting way.
 - Let the user drag the cursor to rotate the drink
 - or include a drink rotate animation
 
-**Suggestion**
-
-This could be a more interactive menu page, but if time is tight, start with:
+**Suggestions**
 
 - drink cards
 - photos
 - short descriptions
 - flavor inspiration
-Then add the rotation effect later as a stretch feature.
 
 ---
 
@@ -233,7 +221,7 @@ Optional future pages:
 - Design the homepage and secondary pages in Figma
 - Build HTML/CSS structure
 - Add navigation
-- Add hero section
+- Add hero video section
 - Add featured drinks
 - Add About page story section
 - Add FAQ and Contact
@@ -253,20 +241,13 @@ Optional future pages:
 
 **Tasks**
 
-- Refine all page styling
-- Add JavaScript interactions
 - Improve mobile layout
-- Finalize copy
 - Optimize images
 - Test links and buttons
 - Clean code and folders
-- Do final review
 - Publish through GitHub/deployment platform
 
 **Deliverables**
 
 - Final website
 - Responsive layout
-- Launch-ready site
-
-Is the site polished, clear, and aligned with the brand?
