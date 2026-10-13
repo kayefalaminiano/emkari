@@ -30,14 +30,6 @@
 
 ---
 
-OTHER PAGES/DOCS
-
-[design moodboard](https://www.notion.so/design-moodboard-3419221450e880dfb641f044dbeef5dc?pvs=21)
-
-[website layout](https://www.notion.so/website-layout-3459221450e8800981befbb6d805bec8?pvs=21)
-
----
-
 ## Brand Vision
 
 **What Emkari does:**
@@ -55,9 +47,7 @@ OTHER PAGES/DOCS
 - Cozy
 - Modern
 - Cultural
-- Elevated
 - Intentional
-- Clean
 
 **Core Website Goals:**
 
@@ -70,7 +60,7 @@ OTHER PAGES/DOCS
 **Current Brand Message**
 
 > “Our culture, your cup”
-> 
+> "Re-Imagined childhood flavors into modern day drinks"
 
 ---
 
@@ -121,7 +111,7 @@ Purpose: tell the story behind the brand and the people behind it.
 - Highlight each part of Emkari:
     - em = Emma
     - ka = Kaye
-    - ari = Arielle
+    - ri = Re-Imagined
 - Possible interaction ideas:
     - hover over each name part to highlight in a different color
     - click each part to open a small pop-up or new section
@@ -129,7 +119,7 @@ Purpose: tell the story behind the brand and the people behind it.
 
 **Suggestion**
 
-Keep this page story-driven and personal, but still clean and modern.
+Keep this page story-driven and personal
 
 ---
 
@@ -143,16 +133,12 @@ Purpose: showcase products in a visually interesting way.
 - Let the user drag the cursor to rotate the drink
 - or include a drink rotate animation
 
-**Suggestion**
-
-This could be a more interactive menu page, but if time is tight, start with:
+**Suggestions**
 
 - drink cards
 - photos
 - short descriptions
 - flavor inspiration
-Then add the rotation effect later as a stretch feature.
-
 ---
 
 ### 4. FAQ
@@ -269,4 +255,3 @@ Optional future pages:
 - Responsive layout
 - Launch-ready site
 
-Is the site polished, clear, and aligned with the brand?
